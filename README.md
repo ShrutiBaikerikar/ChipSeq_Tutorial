@@ -1,9 +1,12 @@
 # ChIP-Sequencing Analysis of H3K4me1 and Nfxl1: Differential Binding And Motif Analysis
 
 Next Generation Sequencing comprise several technologies that help us understand genome wide expression data and provide high resolution insights even up to the transcript activity. ChIP sequencing or Chromatin Immunoprecipitation followed by high-thoroughput sequencing is one such technique that focuses on protein-DNA interactions.
+
 It aids in identification of genomic sites to which the proteins of interest bind. These proteins generally include histone marks or transcription factors which regulate transcription and hence decide which genes will be expressed and which won't.
 
-Differential Binding and Motif Analysis are the common techniques used in downstream analysis of ChIP-Seq data. It helps us identify which different binding sites to which the transcription facor or histone mark bind under different conditions (i.e. disease/treatment vs reference/normal conditions) and in turn the different genes whose expression it may influence. Motif analysis helps identify the underlying sequence of the binding site.
+Differential Binding and Motif Analysis are the common techniques used in downstream analysis of ChIP-Seq data. It helps us identify which different binding sites to which the transcription facor or histone mark bind under different conditions (i.e. disease/treatment vs reference/normal conditions) and in turn the different genes whose expression it may influence. 
+
+Motif analysis helps identify the underlying sequence of the binding site.
 
 In this tutorial, we will be going over a general workflow for Differential Binding and Motif Analysis using ChIP Sequencing data. While the procedures demonstrated in this tutorial are the most common steps involved in ChIP Sequencing data analysis, there are a few things you must keep in mind:
 * There are many tools available for each step of ChIP Sequencing analysis. You can choose any of them and this choice is heavily influenced by type of data, organism, sample number, statiscal requirements as well as goals of research/ analysis.
@@ -77,7 +80,7 @@ The following image gives you a brief idea of the computational approaches invol
 
 
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chipseq_seq_workflow.png" width="400" height=600 alt="ChIP Sequencing Workflow image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipseq_seq_workflow.png" width="400" height=600 alt="ChIP Sequencing Workflow image"/>
 </p>
 
 <p align="center">
@@ -103,9 +106,9 @@ Before proceeding with the tutorial, please install Ubuntu if you are using Wind
 ### Which dataset will we use for DE gene analysis from RNA Seq data? <a name="dataset_intro"></a>
 
 We will be using the following ENCODE datasets for our analysis:
-• [ENCSR000AKF](https://www.encodeproject.org/experiments/ENCSR000AKF/) : H3K4me1 ChIP-Seq on GM12878
-• [ENCSR746XEG](https://www.encodeproject.org/experiments/ENCSR746XEG/): NFXL1 ChIP-Seq on GM12878 
-• [ENCSR085DD1](https://www.encodeproject.org/experiments/ENCSR085DDI/): NFXL1 ChIP-Seq on K562
+* [ENCSR000AKF](https://www.encodeproject.org/experiments/ENCSR000AKF/) : H3K4me1 ChIP-Seq on GM12878
+* [ENCSR746XEG](https://www.encodeproject.org/experiments/ENCSR746XEG/): NFXL1 ChIP-Seq on GM12878 
+* [ENCSR085DD1](https://www.encodeproject.org/experiments/ENCSR085DDI/): NFXL1 ChIP-Seq on K562
 
 
 H3K4me1 is a histone modification in the histone protein H3. A methyl group is added to the fourth lysine residue in H3. H3K4me1enriched regions correspond to enhancers and promoters (sites on the DNA to which transcription factors bind and increase rate of transcription).
@@ -234,7 +237,7 @@ fastqc ./data/reads/*.fastq -o ./qc/fqc_results
 Let’s look at some quality check reports produced by FASTQC for sample H3K4me1_GM12878_input_rep1.fastq
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_fastqc_image1.png" width="800" height=400 alt="FastQC basic statistics image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_fastqc_image1.png" width="800" height=400 alt="FastQC basic statistics image"/>
 </p>
 
 <p align="center">
@@ -247,7 +250,7 @@ In the Basic Statistics section, we can see that the sample H3K4me1_GM12878_inpu
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_fastqc_image2.png" width="800" height=400 alt="FastQC per base sequence quality image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_fastqc_image2.png" width="800" height=400 alt="FastQC per base sequence quality image"/>
 </p>
 
 <p align="center">
@@ -266,17 +269,17 @@ For the sample H3K4me1_GM12878_input_rep1.fastq, we can see that quality scores 
 This can be rectified by filtering reads with low average base quality or trimming low quality reads.
 
 Other important metrics include:
-• Per base sequence composition plot: It reports the percent of bases called at each position across all reads in the file. You can expect read start sequence biases in this plot if fragmenting with transposases or due to random hexamer priming.
+* **Per base sequence composition plot**: It reports the percent of bases called at each position across all reads in the file. You can expect read start sequence biases in this plot if fragmenting with transposases or due to random hexamer priming.
 
-• Per Sequence GC content plot:  The ‘Per Sequence GC content’ averages GC content over all sequences (indicated as red line) and compares it modelled normal distribution of GC content. 
+* **Per Sequence GC content plot**:  The ‘Per Sequence GC content’ averages GC content over all sequences (indicated as red line) and compares it modelled normal distribution of GC content. 
 In this sample, we observe that both the distributions are almost similar. In case, the red distribution would be unusually different from the blue one, this could mean that the library is contaminated with a genome of another organism (could be observed by broad peaks) or there are other kinds of bias (in case of over-represented sequences, you would see sharp peaks). 
 
-• Sequence Duplication Plot: The ‘Sequence Duplication Levels’ plot shows the relative number of sequences with different degrees of duplication.
+* **Sequence Duplication Plot**: The ‘Sequence Duplication Levels’ plot shows the relative number of sequences with different degrees of duplication.
 This module analyses only first 100,000 sequences in each file. Each sequence is tracked to the end of the file to give a representative count of the overall duplication level.
 In a diverse library most sequences will occur only once in the final set. A low level of duplication may indicate a very high level of coverage of the target sequence, but a high level of duplication could indicate a bias such as PCR over-amplification or low complexity library due to small amounts of starting materials.
 In this sample, we do not observe high level of duplication. Duplicates are removed prior to peak calling.
 
-• Over-represented sequences plot: The ‘Overrepresented Sequence Plot’ lists all of the sequence which make up more than 0.1% of the total. 
+* **Over-represented sequences plot**: The ‘Overrepresented Sequence Plot’ lists all of the sequence which make up more than 0.1% of the total. 
 Theoretically, a normal-high throughput library would have a diverse set of sequences; no individual sequence would account for a high fraction of the whole. However, if the sample does contain overrepresented sequences, it could mean that the plot is highly biologically significant or the library is contaminated or it has a bias.
 With ChIP-Seq, it is quite likely to see over-represented sequences in the immunoprecipitated sample as you are enriching for specific protein-bound DNA sequences. Lack of over-represented sequences, as in case of this sample, doesn’t necessarily mean that you have a bad sample/experiment.
 
@@ -286,17 +289,21 @@ With ChIP-Seq, it is quite likely to see over-represented sequences in the immun
 
 After conducting quality checks, multiple pre-processing steps can be conducted to mitigate some of the quality problems that arose during the experimental setup. This assists in better alignment of the reads to the genome.
 These steps include:
-• Filtering: You can filter reads based on their quality. Average read quality is calculated and if it falls below the user-defined threshold that read is dropped from further analysis. In case of Paired End reads, if the mean quality of either of the reads drops below the given threshold, the read pair is dropped from further analysis.
+* **Filtering**: You can filter reads based on their quality. Average read quality is calculated and if it falls below the user-defined threshold that read is dropped from further analysis. In case of Paired End reads, if the mean quality of either of the reads drops below the given threshold, the read pair is dropped from further analysis.
 
-• Trimming: Instead of dropping entire reads or read pairs from further analysis, you can trim low quality bases from a given read. There are several ways to trim a read. Some common techniques include trimming reads from either 3’ or 5’ end or using a sliding window approach where you can define a length of a search window and examine the mean quality of bases in that window. If the mean quality is above the given threshold, the window slides further to examine the next set of bases.
+* **Trimming**: Instead of dropping entire reads or read pairs from further analysis, you can trim low quality bases from a given read. There are several ways to trim a read. Some common techniques include trimming reads from either 3’ or 5’ end or using a sliding window approach where you can define a length of a search window and examine the mean quality of bases in that window. 
+
+If the mean quality is above the given threshold, the window slides further to examine the next set of bases.
+
 Sliding the window from the 5′ end keeps the beginning of the read until the quality falls below the defined threshold, while sliding from the 3′ end cuts until it reaches a window with good enough quality. The window size is an essential parameter that needs to be tuned; very small window size may lead to a stringent check and lead to loss of reads.
 
-• Removal of Adapters: Adapters are short, known sequences of oligonucleotides that are used to extract or fish out DNA sequences of interest. Other tags such as primers and multiplexing identifiers may also be attached to the reads.
-These need to be removed prior to further analysis. However, removal of adapter content can present several hurdles.
+* **Removal of Adapters**: Adapters are short, known sequences of oligonucleotides that are used to extract or fish out DNA sequences of interest. Other tags such as primers and multiplexing identifiers may also be attached to the reads. These need to be removed prior to further analysis. However, removal of adapter content can present several hurdles.
+
 Like any other part of the read, these tags can undergo sequencing errors like mismatches, indels and ambiguous bases. When sequencing small-RNAs, reads can run into a ‘read-through’ situation where the reads extend into the adapter and 3’ end adapter can be partial.
+
 Trimming tools overcome these challenges by examining the reads for known adapter content, aligning the portions of the reads that partially match these adapter sequences and then trimming the matched portions.
 
-• Examining Read Length: Read length distribution gives us an idea of how useful the reads are for further steps such as genome alignment, transcriptome assembly and detection of splice isoforms. Very short reads, resulting from trimming and adapter removal, map unambiguously to the genome and hence can be removed from further analysis.
+* **Examining Read Length**: Read length distribution gives us an idea of how useful the reads are for further steps such as genome alignment, transcriptome assembly and detection of splice isoforms. Very short reads, resulting from trimming and adapter removal, map unambiguously to the genome and hence can be removed from further analysis.
 
 The above-mentioned steps are the most common procedures utilised for pre-processing data prior to alignment. Depending on your data quality and the QC plots, you may need to take additional steps such as cautious removal of duplicates, examining reads for possible contaminants and removing related sequences etc.
 
@@ -306,7 +313,7 @@ In this tutorial, we will be using Trim Galore. We will remove adapters and perf
 
 Assuming you have downloaded and installed Trim Galore. (https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/) Add Trim Galore to your PATH or configuration file.
 
-For Single End Reads
+**For Single End Reads**
 
 ```bash
 
@@ -314,7 +321,7 @@ trim_galore -q 20 --stringency 2 --cores 4 -o ./qc/trim  --fastqc_args "--outdir
 
 ```
 
-For Paired End Reads
+**For Paired End Reads**
 
 ```bash
 
@@ -342,7 +349,7 @@ Open the fastqc html for each trimmed sample. We will check the results for H3K4
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_trimmed_fastqc_image3.png" width="800" height=400 alt="FastQC per base sequence quality for trimmed reads image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_trimmed_fastqc_image3.png" width="800" height=400 alt="FastQC per base sequence quality for trimmed reads image"/>
 </p>
 
 <p align="center">
@@ -388,7 +395,7 @@ Unzip and save the downloaded ‘genome’ index in the index folder under the a
 
 Add Bowtie2 to your path, if not added to the configuration file. Now run Bowtie2 using the following command:
 
-For Single End Reads
+**For Single End Reads**
 
 ```bash
 
@@ -396,7 +403,7 @@ bowtie2 -p 4 -q -x ./align/index/GRCh38_noalt_as -U ./qc/trim/H3K4me1_GM12878_in
 
 ```
 
-For Paired End Reads
+**For Paired End Reads**
 
 ```bash
 
@@ -451,7 +458,7 @@ We will use SAMtools and Sambamba for this step. You can download it from http:/
 
 Add these to your path before executing the following commands.
 
-For Single End reads
+**For Single End reads**
 
 ```bash
 
@@ -462,7 +469,7 @@ sambamba-0.8.0 sort -t 4 -o ./alignment/sorted_filtered_bam/H3K4me1_GM12878_inpu
 
 ```
 
-For Paired End reads:
+**For Paired End reads**
 
 ```bash
 
@@ -491,7 +498,7 @@ The 5’ end of the selected fragments from groups on the positive and negative 
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chip_seq_bimodal_peaks_image_1.png" width="800" height=400 alt="Bimodal Binding Pattern of ChIP-Seq Reads image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_bimodal_peaks_image_1.png" width="800" height=400 alt="Bimodal Binding Pattern of ChIP-Seq Reads image"/>
 </p>
 
 <p align="center">
@@ -504,7 +511,7 @@ This characteristic shape obtained from ChIP-Seq samples are assessed using stat
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chip_seq_bimodal_peaks_image_2.png" width="800" height=400 alt="Different Signal Types from Chip-Seq Data image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_bimodal_peaks_image_2.png" width="800" height=400 alt="Different Signal Types from Chip-Seq Data image"/>
 </p>
 
 <p align="center">
@@ -565,14 +572,14 @@ Then MACS2 randomly samples 1000 of these high quality peaks, separates the posi
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chip_seq_bimodal_peaks_image_3.png" width="800" height=400 alt="Peak Calling with MACS2 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_bimodal_peaks_image_3.png" width="800" height=400 alt="Peak Calling with MACS2 image"/>
 </p>
 
 <p align="center">
      <b> Theoretical Visualization of MACS2's modeling of shift size  </b>
 </p> 
 
-***Citation: Bardet AF, Steinmann J, Bafna S, Knoblich JA, Zeitlinger J, Stark A. Identification of transcription factor binding sites from ChIP-seq data at high resolution. Bioinformatics. 2013;29(21):2705-2713. doi:10.1093/bioinformatics/btt470***
+*Citation: Bardet AF, Steinmann J, Bafna S, Knoblich JA, Zeitlinger J, Stark A. Identification of transcription factor binding sites from ChIP-seq data at high resolution. Bioinformatics. 2013;29(21):2705-2713. doi:10.1093/bioinformatics/btt470*
 
 The distance between the modes of the forward and reverse strand peaks in the alignment is defined as 'd', and MACS2 shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.
 
@@ -774,7 +781,7 @@ Running these commands will generate a ChipQC Folder containing around 9 plots a
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chipqc_image_1.png" width="800" height=400 alt="Summary of ChIPQC of all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipqc_image_1.png" width="800" height=400 alt="Summary of ChIPQC of all samples image"/>
 </p>
 
 <p align="center">
@@ -799,7 +806,7 @@ These metrics helps us understand the distribution of the signal in the enriched
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chipqc_image_2.png" width="800" height=400 alt="ChIPQC: SSD of all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipqc_image_2.png" width="800" height=400 alt="ChIPQC: SSD of all samples image"/>
 </p>
 
 <p align="center">
@@ -816,7 +823,7 @@ In our dataset, Nfxl1 samples have a higher SSD score than H3K4me1. The coverage
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chipqc_image_3.png" width="800" height=400 alt="ChIPQC: Percentage of Reads in Peaks for all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipqc_image_3.png" width="800" height=400 alt="ChIPQC: Percentage of Reads in Peaks for all samples image"/>
 </p>
 
 <p align="center">
@@ -836,7 +843,7 @@ Also the plot shows that ChIP samples are more enriched than input samples.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chipqc_image_4.png" width="800" height=400 alt="ChIPQC: Percentage of Reads in Blacklist for all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipqc_image_4.png" width="800" height=400 alt="ChIPQC: Percentage of Reads in Blacklist for all samples image"/>
 </p>
 
 <p align="center">
@@ -851,7 +858,7 @@ It is best to have low RiBL percentages. For our dataset, we observe the same in
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chipqc_image_5.png" width="800" height=400 alt="ChIPQC: Enrichment in expected genomic regions for all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipqc_image_5.png" width="800" height=400 alt="ChIPQC: Enrichment in expected genomic regions for all samples image"/>
 </p>
 
 <p align="center">
@@ -867,7 +874,7 @@ In our dataset, we see an enrichment in ‘Promoters’ and ‘All 5’utrs’ a
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chipqc_image_6.png" width="800" height=400 alt="ChIPQC: Cross Coverage Plot for all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipqc_image_6.png" width="800" height=400 alt="ChIPQC: Cross Coverage Plot for all samples image"/>
 </p>
 
 <p align="center">
@@ -895,13 +902,14 @@ We have got high Fragment Length peaks for our samples in the plot (especially i
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chipqc_image_7.png" width="800" height=400 alt="Example of Cross Coverage Plots image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipqc_image_7.png" width="800" height=400 alt="Example of Cross Coverage Plots image"/>
 </p>
 
 <p align="center">
      <b>Example of Cross Coverage Plots for different ChIP-Seq experiments </b>
 </p> 
-**Citation: Landt SG, Marinov GK, Kundaje A, et al. ChIP-seq guidelines and practices of the ENCODE and modENCODE consortia. Genome Res. 2012;22(9):1813-1831. doi:10.1101/gr.136184.111**
+
+*Citation: Landt SG, Marinov GK, Kundaje A, et al. ChIP-seq guidelines and practices of the ENCODE and modENCODE consortia. Genome Res. 2012;22(9):1813-1831. doi:10.1101/gr.136184.111*
 
 This image shows a series of CC Plot indicative of successful, marginal or failed ChIP-Seq experiments and gives us a general idea of what our CC plots should look like.
 
@@ -909,7 +917,7 @@ This image shows a series of CC Plot indicative of successful, marginal or faile
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/chipqc_image_8.png" width="800" height=400 alt="ChIPQC: Peak profile for all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipqc_image_8.png" width="800" height=400 alt="ChIPQC: Peak profile for all samples image"/>
 </p>
 
 <p align="center">
@@ -1058,7 +1066,7 @@ Some interesting features about the narrowPeak file obtained from IDR include:
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/idr_plots_image1.png" width="800" height=400 alt="IDR output Plots for all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/idr_plots_image1.png" width="800" height=400 alt="IDR output Plots for all samples image"/>
 </p>
 
 <p align="center">
@@ -1200,7 +1208,7 @@ Here are the profile plots and heatmaps for each of our samples.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image1.png" width="800" height=400 alt="Profile plot of all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image1.png" width="800" height=400 alt="Profile plot of all samples image"/>
 </p>
 
 <p align="center">
@@ -1212,7 +1220,7 @@ The profile plots demonstrate the signal at the Transcription Start Sites and 2.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image2.png" width="800" height=400 alt="Heatmaps of all samples image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image2.png" width="800" height=400 alt="Heatmaps of all samples image"/>
 </p>
 
 <p align="center">
@@ -1254,7 +1262,7 @@ In the box, right next to the one where you select chromosome 1, type the gene n
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image4.png" width="800" height=400 alt="IGV for H3K4me1_GM12878 chromosome 1 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image4.png" width="800" height=400 alt="IGV for H3K4me1_GM12878 chromosome 1 image"/>
 </p>
 
 <p align="center">
@@ -1278,7 +1286,7 @@ Here is what your screen should look like.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image5.png" width="800" height=400 alt="IGV for H3K4me1_GM12878 with ENCODE data image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image5.png" width="800" height=400 alt="IGV for H3K4me1_GM12878 with ENCODE data image"/>
 </p>
 
 <p align="center">
@@ -1287,7 +1295,7 @@ Here is what your screen should look like.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image6.png" width="800" height=400 alt="IGV for H3K4me1_GM12878 chromosome 1 with ENCODE data image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image6.png" width="800" height=400 alt="IGV for H3K4me1_GM12878 chromosome 1 with ENCODE data image"/>
 </p>
 
 <p align="center">
@@ -1302,7 +1310,7 @@ Your IGV interface should now look something like the screenshot below. By defau
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image7.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image7.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 image"/>
 </p>
 
 <p align="center">
@@ -1313,7 +1321,7 @@ Use the pulldown menu to zoom into chromosome 8 and enter gene symbol MYC (MYC P
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image8.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 chromosome 8 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image8.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 chromosome 8 image"/>
 </p>
 
 <p align="center">
@@ -1324,7 +1332,7 @@ Further zoom into chromosome 20 and enter gene symbol ZNF217. ChIP signal indica
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image9.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 chromosome 20 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image9.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 chromosome 20 image"/>
 </p>
 
 <p align="center">
@@ -1335,7 +1343,7 @@ Next move to chromosome 19 and enter gene symbol NFIC (Nuclear Factor I C-type).
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image10.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 chromosome 19 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image10.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 chromosome 19 image"/>
 </p>
 
 <p align="center">
@@ -1350,7 +1358,7 @@ https://www.encodeproject.org/files/ENCFF400AJJ/@@download/ENCFF400AJJ.bigWig
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/visualization_image11.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 with ENCODE data image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/visualization_image11.png" width="800" height=400 alt="IGV for Nfxl1_GM12878 and Nfxl1_K562 with ENCODE data image"/>
 </p>
 
 <p align="center">
@@ -1551,7 +1559,7 @@ Here are the various enrichment plots for each sample.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/annotations_image3.png" width="800" height=400 alt="GO enrichment for H3K4me1_GM12878 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/annotations_image3.png" width="800" height=400 alt="GO enrichment for H3K4me1_GM12878 image"/>
 </p>
 
 <p align="center">
@@ -1561,7 +1569,7 @@ Here are the various enrichment plots for each sample.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/annotations_image4.png" width="800" height=400 alt="GO enrichment for Nfxl1_GM12878 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/annotations_image4.png" width="800" height=400 alt="GO enrichment for Nfxl1_GM12878 image"/>
 </p>
 
 <p align="center">
@@ -1571,7 +1579,7 @@ Here are the various enrichment plots for each sample.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/annotations_image5.png" width="800" height=400 alt="GO enrichment for Nfxl1_K562 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/annotations_image5.png" width="800" height=400 alt="GO enrichment for Nfxl1_K562 image"/>
 </p>
 
 <p align="center">
@@ -1581,7 +1589,7 @@ Here are the various enrichment plots for each sample.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/annotations_image6.png" width="800" height=400 alt="KEGG enrichment for H3K4me1_GM12878 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/annotations_image6.png" width="800" height=400 alt="KEGG enrichment for H3K4me1_GM12878 image"/>
 </p>
 
 <p align="center">
@@ -1591,7 +1599,7 @@ Here are the various enrichment plots for each sample.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/annotations_image7.png" width="800" height=400 alt="KEGG enrichment for Nfxl1_GM12878 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/annotations_image7.png" width="800" height=400 alt="KEGG enrichment for Nfxl1_GM12878 image"/>
 </p>
 
 <p align="center">
@@ -1601,7 +1609,7 @@ Here are the various enrichment plots for each sample.
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/annotations_image8.png" width="800" height=400 alt="KEGG enrichment for Nfxl1_K562 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/annotations_image8.png" width="800" height=400 alt="KEGG enrichment for Nfxl1_K562 image"/>
 </p>
 
 <p align="center">
@@ -1630,7 +1638,7 @@ dotplot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis-C
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/annotations_image9.png" width="800" height=400 alt="KEGG enrichment comparison between Nfxl1_GM12878 and Nfxl1_K562 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/annotations_image9.png" width="800" height=400 alt="KEGG enrichment comparison between Nfxl1_GM12878 and Nfxl1_K562 image"/>
 </p>
 
 <p align="center">
@@ -1696,7 +1704,7 @@ Open the homerResults.html file for each sample. Here is what the results would 
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/motif_image1.png" width="800" height=400 alt="Motif Analysis for H3K4me1_GM12878 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/motif_image1.png" width="800" height=400 alt="Motif Analysis for H3K4me1_GM12878 image"/>
 </p>
 
 <p align="center">
@@ -1706,7 +1714,7 @@ Open the homerResults.html file for each sample. Here is what the results would 
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/motif_image2.png" width="800" height=400 alt="Motif Analysis for Nfxl1_GM12878 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/motif_image2.png" width="800" height=400 alt="Motif Analysis for Nfxl1_GM12878 image"/>
 </p>
 
 <p align="center">
@@ -1716,7 +1724,7 @@ Open the homerResults.html file for each sample. Here is what the results would 
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/motif_image2.png" width="800" height=400 alt="Motif Analysis for Nfxl1_K562 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/motif_image2.png" width="800" height=400 alt="Motif Analysis for Nfxl1_K562 image"/>
 </p>
 
 <p align="center">

@@ -1,4 +1,4 @@
-# ChIP-Sequencing Analysis of H3K4me1 and Nfxl1: Differential Binding And Motif Analysis
+# ChIP-Sequencing Analysis of H3K4me1 and Nfxl1: Motif Analysis
 
 Next Generation Sequencing comprise several technologies that help us understand genome wide expression data and provide high resolution insights even up to the transcript activity. ChIP sequencing or Chromatin Immunoprecipitation followed by high-thoroughput sequencing is one such technique that focuses on protein-DNA interactions.
 
@@ -80,7 +80,7 @@ The following image gives you a brief idea of the computational approaches invol
 
 
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chipseq_seq_workflow.png" width="400" height=600 alt="ChIP Sequencing Workflow image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_workflow.png" width="400" height=600 alt="ChIP Sequencing Workflow image"/>
 </p>
 
 <p align="center">
@@ -237,7 +237,7 @@ fastqc ./data/reads/*.fastq -o ./qc/fqc_results
 Let’s look at some quality check reports produced by FASTQC for sample H3K4me1_GM12878_input_rep1.fastq
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_fastqc_image1.png" width="800" height=400 alt="FastQC basic statistics image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_fastqc_image_1.png" width="800" height=400 alt="FastQC basic statistics image"/>
 </p>
 
 <p align="center">
@@ -250,7 +250,7 @@ In the Basic Statistics section, we can see that the sample H3K4me1_GM12878_inpu
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_fastqc_image2.png" width="800" height=400 alt="FastQC per base sequence quality image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_fastqc_image_2.png" width="800" height=400 alt="FastQC per base sequence quality image"/>
 </p>
 
 <p align="center">
@@ -349,7 +349,7 @@ Open the fastqc html for each trimmed sample. We will check the results for H3K4
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_trimmed_fastqc_image3.png" width="800" height=400 alt="FastQC per base sequence quality for trimmed reads image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/H3K4me1_GM12878_input_rep1_trimmed_fastqc_image_3.png" width="800" height=400 alt="FastQC per base sequence quality for trimmed reads image"/>
 </p>
 
 <p align="center">
@@ -498,7 +498,7 @@ The 5’ end of the selected fragments from groups on the positive and negative 
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_bimodal_peaks_image_1.png" width="800" height=400 alt="Bimodal Binding Pattern of ChIP-Seq Reads image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_bimodal_peaks_image_1.png" width="400" height=500 alt="Bimodal Binding Pattern of ChIP-Seq Reads image"/>
 </p>
 
 <p align="center">
@@ -511,7 +511,7 @@ This characteristic shape obtained from ChIP-Seq samples are assessed using stat
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_bimodal_peaks_image_2.png" width="800" height=400 alt="Different Signal Types from Chip-Seq Data image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_bimodal_peaks_image_2.png" width="600" height=800 alt="Different Signal Types from Chip-Seq Data image"/>
 </p>
 
 <p align="center">
@@ -527,7 +527,7 @@ Here is a primer as to why we observe different signal types:
 - Broad Peaks/Broad signal: Histone marks are spread over multiple nucleosomes that are loosely positioned on the DNA sequence; in other words, histone marks cover large gene bodies. Hence the signal appears as broad regions of enrichment and are several kilobases in size.
 - Mixed signal: Mixed binding signals are mostly observed for RNA polymerase i.e. PolII/III show broad and sharp peaks. Narrow peaks generally suggest binding at the promotor while broad peaks correspond to transcription elongation.
 
-#### 5a. Peak Caliing with MACS2 - Theory
+#### 5a. Peak Calling with MACS2 - Theory
 
 Primarily, the characteristic bimodal distribution of ChIP-seq samples assists in peak calling. Peak callers generally follow this basic framework:
 - slide a window along the genome to identify regions of enrichment
@@ -545,6 +545,7 @@ MACS2 works for both single-end and paired-end reads. It works for ChIP sample a
 Let’s go over the steps followed MACS2 algorithm in detail.
 
 **Step 1: Removing duplicates**
+
 A good sequencing depth can help identify all true binding sites in the sample. But sequencing is susceptible to errors and these can give rise to duplicates.
 
 Here reads with the same start position are considered as duplicates. There can be two types of duplicates:
@@ -554,9 +555,10 @@ Here reads with the same start position are considered as duplicates. There can 
 MACS2 deals with duplicates in several ways via –KEEP-DUP command. The default auto option makes MACS calculate the maximum tags at the exact same location based on binomial distribution using 1e-5 as p-value cutoff.
 The all option keeps every tag.
 
-You can specify an integer and accordingly MACS will keep at the most that many tags at the same location. By default, it keeps only one read at the same location.
+You can specify an integer and accordingly MACS will keep at the most that many tags at the same location. By default, it keeps only one read at the same location. 
 
-** Step 2: Modeling the shift size**
+**Step 2: Modeling the shift size**
+
 As mentioned previously, ChIP sequencing is performed randomly from either end. This results in reads that represent ends of the fragments instead of the actual protein-DNA binding sites.
 
 The 5’end of the reads are centered around the binding site both on the positive and negative strand thus resulting in a bimodal distribution. For single-end reads, the distance between the forward and reverse strand distribution is used to estimate the fragment size.
@@ -572,7 +574,7 @@ Then MACS2 randomly samples 1000 of these high quality peaks, separates the posi
 
 <p> </br> </p>
 <p align="center">
-<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_bimodal_peaks_image_3.png" width="800" height=400 alt="Peak Calling with MACS2 image"/>
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_Tutorial/blob/main/images/chip_seq_bimodal_peaks_image_3.png" width="400" height=500 alt="Peak Calling with MACS2 image"/>
 </p>
 
 <p align="center">
@@ -583,7 +585,8 @@ Then MACS2 randomly samples 1000 of these high quality peaks, separates the posi
 
 The distance between the modes of the forward and reverse strand peaks in the alignment is defined as 'd', and MACS2 shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.
 
-** Step 3: Peak detection **
+**Step 3: Peak detection**
+
 Prior to peak detection, for experiments with control sample, MACS2 linearly scales the total control read count to be the same as the total ChIP read count.
 
 The read distribution of ChIP-Seq data is modelled as Poisson distribution. 
@@ -621,7 +624,8 @@ Overlapping enriched peaks are merged, and each read position is extended d base
 
 Candidate peaks with p-values below a user-defined threshold p-value (default 10-5) are called, and the ratio between the ChIP-Seq tag count and λlocal is reported as the fold_enrichment.
 
-** Step 4: Multiple testing correction **
+**Step 4: Multiple testing correction**
+
 Each peak is considered as an independent test and since we are detecting thousands of significant peaks, we run into multiple testing problem.
 
 If you run a single hypothesis test, there’s a small chance (alpha = 5%) that you’ll get a false significant result. If you run thousands of tests and maintain the same alpha value, then the number of false alarms increases dramatically.
@@ -712,9 +716,10 @@ Now coming to the output files generated by MACS:
 6. NAME_model.r is an R script which you can use to produce a PDF image of the model based on your data. This file is not available for paired-end reads or BAMPE format as fragment length is determined by insert size of paired end reads and not from the bimodal distribution of plus and minus strand reads.
 7. NAME_treat_pileup.bdg and NAME_control_lambda.bdg files are in bedGraph format The NAME_treat_pielup.bdg contains the pileup signals from ChIP/treatment sample. The NAME_control_lambda.bdg contains local biases estimated for each genomic location from the control sample, or from treatment sample when the control sample is absent. 
 
-As per the commands that we have executed above, we should get 4 files each for histone marks( RScript, gappedPeak, broadPeak and .xls file) and 5 files each for transcription factor (narrowPeak, .xls file, summits.bed file, control_lambda.bdg, treat_pileup.bdg) 
+As per the commands that we have executed above, we should get 4 files each for histone marks( RScript, gappedPeak, broadPeak and .xls file) and 5 files each for transcription factor (narrowPeak, .xls file, summits.bed file, control_lambda.bdg, treat_pileup.bdg).
+
  
---------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ### 6. ChIP-specific Quality Control <a name="chip_qc"></a>
 
@@ -731,15 +736,15 @@ Blacklist regions comprise of genomic regions that tend to have a very high rati
 Such regions have anomalous or excessively high signal in next-generation sequencing experiments independent of cell line or experiment. The removal of the ENCODE blacklist is an essential quality measure when analyzing functional genomics data.
 
 Before we run the ChIP-specific analysis, we need to create a sample sheet contains metadata information for our dataset. It includes the following columns:
-• SampleID: Identifier string for sample
-• Tissue, Factor, Condition: Identifier strings for up to three different experimental parameters such as tissue/cell line, factor indicates the name of the protein you are studying (histone mark or TF) and condition would be treatment/no treatment etc. In our case, we simply want to differentiate between our three sample sets (H3K4me1_GM12878, Nfxl1_GM12878, Nfxl1_K562) and that’s what we have set our Condition column as.
+* SampleID: Identifier string for sample
+* Tissue, Factor, Condition: Identifier strings for up to three different experimental parameters such as tissue/cell line, factor indicates the name of the protein you are studying (histone mark or TF) and condition would be treatment/no treatment etc. In our case, we simply want to differentiate between our three sample sets (H3K4me1_GM12878, Nfxl1_GM12878, Nfxl1_K562) and that’s what we have set our Condition column as.
 If you don’t have information, then set values to NA.
-• Replicate: Replicate number of sample
-• bamReads: file path for BAM file containing aligned reads for ChIP sample
-• ControlID: an identifier string for the control sample
-• bamControl: file path for bam file containing aligned reads for control sample
-• Peaks: path for file containing peaks for sample
-• PeakCaller: Identifier string for peak caller used. In our case we have set it to “bed”.
+* Replicate: Replicate number of sample
+* bamReads: file path for BAM file containing aligned reads for ChIP sample
+* ControlID: an identifier string for the control sample
+* bamControl: file path for bam file containing aligned reads for control sample
+* Peaks: path for file containing peaks for sample
+* PeakCaller: Identifier string for peak caller used. In our case we have set it to “bed”.
 
 Both the meta_samples_chipqc.csv file and the chipqc.R script has been provided in the **tutorial_data and scripts folder in the repository respectively**. Please change the file path in the meta_samples_chipqc.csv to suit your system.
 
@@ -1080,8 +1085,10 @@ Here are the details of the plots as mentioned by the creators of IDR:
 - Bottom Row: Peaks rank versus IDR scores are plotted in black for each replicate. The overlayed boxplots display the distribution of IDR values in each 5% quantile. The IDR values are thresholded at the optimization precision - 1e-6 .
 
 
-####7b. Overlapping of Peaks with BedTools
+#### 7b. Overlapping of Peaks with BedTools
+
 Overlap of peak regions is a straightforward approach to compare peaks across the samples and develop consensus peak set. It helps us understand whether a peak is found in both samples and gives us a rough idea of similarity in peak regions between different samples.
+
 However, this approach underestimates the similarity because it does not take into account the different thresholds used during peak calling.
 
 According to the ENCODE3 guidelines, IDR analysis is not recommended for histone marks as broad peaks can have ambiguous peak overlaps. As an alternative, the ENCODE3 pipeline involves a python script overlap_peaks.py for histone marks.
@@ -1279,7 +1286,9 @@ One example of a cell-type specific loop is anchored at the promoter of the SELL
 So we will use File -> Load from URL option.
 
 Enter these two URLs one by one to load the bigWig files for the same dataset as available on ENCODE.
+
 https://www.encodeproject.org/files/ENCFF895HSK/@@download/ENCFF895HSK.bigWig
+
 https://www.encodeproject.org/files/ENCFF476LYZ/@@download/ENCFF476LYZ.bigWig
 
 Here is what your screen should look like.
@@ -1303,8 +1312,8 @@ Here is what your screen should look like.
 </p>
 
 Follow the same steps as above for transcription factor Nfxl1. Now you will be loading the following files:
--bigWig files: Nfxl1_GM12878_rep1.bw , Nfxl1_Gm12878_rep2.bw , Nfxl1_K562_rep1.bw and Nfxl1_K562_rep2.bw
--narrowPeak files: Nfxl1_GM12878_rep1_bfilt_peaks.narrowPeak , Nfxl1_Gm12878_rep2_bfilt_peaks.narrowPeak , Nfxl1_K562_rep1_bfilt_peaks.narrowPeak and Nfxl1_K562_rep2_bfilt_peaks.narrowPeak
+* bigWig files: Nfxl1_GM12878_rep1.bw , Nfxl1_Gm12878_rep2.bw , Nfxl1_K562_rep1.bw and Nfxl1_K562_rep2.bw
+* narrowPeak files: Nfxl1_GM12878_rep1_bfilt_peaks.narrowPeak , Nfxl1_Gm12878_rep2_bfilt_peaks.narrowPeak , Nfxl1_K562_rep1_bfilt_peaks.narrowPeak and Nfxl1_K562_rep2_bfilt_peaks.narrowPeak
 
 Your IGV interface should now look something like the screenshot below. By default, you will be in a zoomed out view.
 
@@ -1351,10 +1360,15 @@ Next move to chromosome 19 and enter gene symbol NFIC (Nuclear Factor I C-type).
 </p>
 
 Finally, we will load the processed files from ENCODE dataset. In the image below tracks for bigWig files for NFXL1_GM12878 are coloured red while NFXL1_K562 are in green and our data is in blue. Use the following URLs:
+
 https://www.encodeproject.org/files/ENCFF112OPN/@@download/ENCFF112OPN.bigWig
+
 https://www.encodeproject.org/files/ENCFF768PGN/@@download/ENCFF768PGN.bigWig
+
 https://www.encodeproject.org/files/ENCFF713FGJ/@@download/ENCFF713FGJ.bigWig
+
 https://www.encodeproject.org/files/ENCFF400AJJ/@@download/ENCFF400AJJ.bigWig
+
 
 <p> </br> </p>
 <p align="center">
@@ -1776,9 +1790,9 @@ a sequence associated with Zinc Finger Protein 263 (ZNF263) which is associated 
 
 **[2]** https://github.com/hbctraining/Intro-to-ChIPseq
 
-**[3]** Andrews S. (2010)."**FastQC: a quality control tool for high throughput sequence data.**" [[Source Code:](http://www.bioinformatics.babraham.ac.uk/projects/fastqc)]
+**[3]** Andrews S. (2010)."**FastQC: a quality control tool for high throughput sequence data.**" [[Source Code](http://www.bioinformatics.babraham.ac.uk/projects/fastqc)]
         
-**[4]** TrimGalore, Felix Krueger. [[Source Code:](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore)]
+**[4]** TrimGalore, Felix Krueger. [[Source Code](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore)]
 
 **[5]** Danecek P, Bonfield JK, Liddle J, Marshall J, Ohan V, Pollard MO, Whitwham A, Keane T, McCarthy SA, Davies RM, Li H. "**Twelve years of SAMtools and BCFtools**"
         GigaScience (2021) 10(2) giab008 [33590861] PMID: 33590861  [[Research paper](https://pubmed.ncbi.nlm.nih.gov/33590861/)]
@@ -1787,7 +1801,7 @@ a sequence associated with Zinc Finger Protein 263 (ZNF263) which is associated 
         https://doi.org/10.1093/bioinformatics/btv098 [[Research paper](https://academic.oup.com/bioinformatics/article/31/12/2032/214758)]
 
 **[7]** Zhang, Y., Liu, T., Meyer, C.A. et al. "**Model-based Analysis of ChIP-Seq (MACS)**". Genome Biol 9, R137 (2008). https://doi.org/10.1186/gb-2008-9-9-r137
-        [[Research paper](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137)] [[Source Code:](https://github.com/macs3-project/MACS)]
+        [[Research paper](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137)] [[Source Code](https://github.com/macs3-project/MACS)]
 
 **[8]** Carroll TS, Liang Z, Salama R, Stark R, de Santiago I (in press). “**Impact of artefact removal on ChIP quality metrics in ChIP-seq and ChIP-exo data.**” Frontiers in Genetics. 
 

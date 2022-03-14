@@ -1,4 +1,4 @@
-# ChIP-Sequencing Analysis of H3K4me1 and Nfxl1: Motif Analysis
+# ChIP-Sequencing Analysis of H3K4me1 and Nfxl1: Motif Analysis Tutorial
 
 Next Generation Sequencing comprise several technologies that help us understand genome wide expression data and provide high resolution insights even up to the transcript activity. ChIP sequencing or Chromatin Immunoprecipitation followed by high-thoroughput sequencing is one such technique that focuses on protein-DNA interactions.
 

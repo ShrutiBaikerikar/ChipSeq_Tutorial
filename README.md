@@ -4,12 +4,12 @@ Next Generation Sequencing comprise several technologies that help us understand
 
 It aids in identification of genomic sites to which the proteins of interest bind. These proteins generally include histone marks or transcription factors which regulate transcription and hence decide which genes will be expressed and which won't.
 
-Differential Binding and Motif Analysis are the common techniques used in downstream analysis of ChIP-Seq data. It helps us identify which different binding sites to which the transcription facor or histone mark bind under different conditions (i.e. disease/treatment vs reference/normal conditions) and in turn the different genes whose expression it may influence. 
+Differential Binding and Motif Analysis are the common techniques used in downstream analysis of ChIP-Seq data. It helps us identify which are the different binding sites to which the transcription facor or histone mark binds under different conditions (i.e. disease/treatment vs reference/normal conditions) and in turn the different genes whose expression it may influence. 
 
 Motif analysis helps identify the underlying sequence of the binding site.
 
-In this tutorial, we will be going over a general workflow for Differential Binding and Motif Analysis using ChIP Sequencing data. While the procedures demonstrated in this tutorial are the most common steps involved in ChIP Sequencing data analysis, there are a few things you must keep in mind:
-* There are many tools available for each step of ChIP Sequencing analysis. You can choose any of them and this choice is heavily influenced by type of data, organism, sample number, statiscal requirements as well as goals of research/ analysis.
+In this tutorial, we will be going over a general workflow for Motif Analysis using ChIP Sequencing data. While the procedures demonstrated in this tutorial are the most common steps involved in ChIP Sequencing data analysis, there are a few things you must keep in mind:
+* There are many tools available for each step of ChIP Sequencing analysis. You can choose any of them and this choice is heavily influenced by type of data, organism, sample number, statiscal requirements as well as goals of research/analysis.
 * ChIP Sequencing data analysis is not limited to identifying differential binding sites alone; it has many applications and these require separate workflows.
 * The tools used in this tutorial help analyse the chosen dataset but this may not be the same for you. You may have to choose separate tools for your ChIP-Seq data.
 * When working with large number of samples, it is advisable to work on a high performance cluster or utilise cloud services.

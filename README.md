@@ -46,13 +46,13 @@ ChIP sequencing or Chromatin Immunoprecipitation followed by high-throughput seq
 
 Transcription is a process that converts DNA into messenger RNA that can be further translated into protein. Alternative splicing during transcription determines which part of the gene will contribute to the final mRNA that will code for the protein variant. 
 
-Protein-DNA interactions help regulate gene expression. Transcription can be regulated before initiation or even during the process to determine how many transcripts (mRNA) is produced or which variant of the transcript is produced.
+Protein-DNA interactions help regulate gene expression. Transcription can be regulated before initiation or even during the process to determine how many transcripts (mRNA) are produced or which variant of the transcript is produced.
 
 The rate of transcription initiation is one of the primary ways by which gene expression is regulated. Transcription factors are proteins that bind to specific areas (motifs) in the DNA and regulate the transcription rate of that gene. They may enhance or lower transcription rate.
 
 Regulation of DNA packing and structure can also affect gene expression. Changes in DNA packing in the nucleus can determine which regions of the DNA would be accessible to transcription factors and thus influence the rate of transcription.
 
-Histone is a protein that helps in packing DNA in the nucleus. They serve as spools for thread-like DNA to bind around thus condensing the structure into chromatin that can be packed in the nucleus.
+Histone is a protein that helps in packing DNA in the nucleus. They serve as spools for thread-like DNA to bind around, thus condensing the structure into chromatin that can be packed in the nucleus.
 
 Modifications in histone tails (such as acetylation, methylation and phosphorylation) can affect the affinity of histones to bind to DNA and thus impact DNA packing. Histone modifications are associated with a number of different transcription-related conditions.
 They may limit or expose transcription factor binding sites thus indirectly regulating transcription and gene expression.
@@ -111,7 +111,7 @@ We will be using the following ENCODE datasets for our analysis:
 * [ENCSR085DD1](https://www.encodeproject.org/experiments/ENCSR085DDI/): NFXL1 ChIP-Seq on K562
 
 
-H3K4me1 is a histone modification in the histone protein H3. A methyl group is added to the fourth lysine residue in H3. H3K4me1enriched regions correspond to enhancers and promoters (sites on the DNA to which transcription factors bind and increase rate of transcription).
+H3K4me1 is a histone modification in the histone protein H3. A methyl group is added to the fourth lysine residue in H3. H3K4me1 enriched regions correspond to enhancers and promoters (sites on the DNA to which transcription factors bind and increase rate of transcription).
 
 NFXL1 stands for Nuclear Transcription Factor, X box binding like 1. It enables DNA-binding transcription activity. Diseases associated with NFXL1 include speech and communication disorders.
 
@@ -345,7 +345,7 @@ This script is available as samples_trim.sh in <u> <b> the scripts folder in the
 
 After trimming you will get files such as H3K4me1_input_rep1_trimmed.fq for single end reads and Nfxl1_GM12878_input_rep1_1_val_1.fq  and Nfxl1_GM12878_input_rep1_2_val_2.fq for paired end reads.
 
-Open the fastqc html for each trimmed sample. We will check the results for H3K4me1_GM12878_input_rep1_trimmed.fq.
+Open the FASTQC html file for each trimmed sample. We will check the results for H3K4me1_GM12878_input_rep1_trimmed.fq.
 
 <p> </br> </p>
 <p align="center">
@@ -377,19 +377,19 @@ ChIP-Seq reads are derived from specific, short, enriched DNA fragments and thus
 
 The basic approach of such aligners is ‘seed and extend’ which involves:
 1. identifying segments of reads of defined lengths (seeds) that precisely map to a given location in the genome. Seed matches can be exact or tolerate mismatches. Shorter seeds increase sensitivity while longer seeds permit faster searches.
-2. extend the reads in both directions to map rest of the read or maximum mappable length
+2. extend the reads in both directions to map the rest of the read or maximum mappable length
 
-Most aligners assign a quality score which estimates the accuracy of the obtained alignment.
+Most aligners assign a quality score that estimates the accuracy of the obtained alignment.
 
-One such aligner is Bowtie2. Some of the advantages Bowtie2 offers is that it is fast, has high accuracy and low memory requirements.  
+One such aligner is Bowtie2. Some of the advantages Bowtie2 offers are that it is fast, has high accuracy ,and has low memory requirements.  
 It is based on Burrows Wheeler Transform (BWT) which is a data compression algorithm. It transforms data in a way that it is amenable to compression and is useful for data containing lots of repeats (sequence information, in our case).
 It is useful for aligning reads of about 50 up to 100s base pairs in length.
 
-Bowtie2 supports gapped alignment with affine gap penalties. It offers end-to-end alignment where it searches for alignments including all characters in the given read as well as local alignment where it trims some characters from either or both ends to improve alignment score.
+Bowtie2 supports gapped alignment with affine gap penalties. It offers end-to-end alignment where it searches for alignments including all characters in the given read as well as local alignment where it trims some characters from either or both ends to improve the alignment score.
 
 You can download and install Bowtie2 from https://github.com/BenLangmead/bowtie2. 
 
-Additionally, download the reference genome index (H. sapiens, GRCh38 no-alt analysis set) given by Bowtie2 developers so as to save time. You can download it from http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
+Additionally, download the reference genome index (H. sapiens, GRCh38 no-alt analysis set) given by Bowtie2 developers to save time. You can download it from http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
 
 Unzip and save the downloaded ‘genome’ index in the index folder under the alignment directory.
 
@@ -427,9 +427,9 @@ You have to run this command for each sample by changing the sample names. Alter
 
 ### 4. SAM/BAM Processing of Aligned ChIP-Seq Reads <a name="sam_bam"></a>
 
-The output from Bowtie2 aligner is in the SAM format. SAM or Sequence Alignment Map format is a tab-delimited text file that stores information regarding alignment of individual read to the reference genome.
+The output from the Bowtie2 aligner is in the SAM format. SAM or Sequence Alignment Map format is a tab-delimited text file that stores information regarding the alignment of an individual read to the reference genome.
 
-The file begins with the header section and each heading begins with ‘@’ symbol. The header contains information about the source of data, reference genome used, method of alignment and other additional information about the alignment.
+The file begins with the header section and each heading begins with the ‘@’ symbol. The header contains information about the source of data, reference genome used, method of alignment ,and other additional information about the alignment.
 
 Following the header is the alignment section. It contains information for each read and where and how it aligns to the reference genome. The alignment section has 11 mandatory fields:
 - QNAME: Query name or read name
@@ -446,13 +446,13 @@ Following the header is the alignment section. It contains information for each 
 
 Apart from these mandatory fields, there are multiple optional fields or TAGS available that store aligner-specific information. 
 
-Some attributes of the SAM format that are relevant to this tutorial are FLAG, MAPQ and among the optional fields [XS] Tag that is specifically used by Bowtie2.
+Some attributes of the SAM format that are relevant to this tutorial are FLAG, MAPQ ,and among the optional fields [XS] Tag that is specifically used by Bowtie2.
 
-The Bitwise FLAG helps us filter out reads that are uniquely mapped and concordantly mapped in case of paired-end reads. Similarly, you can consider filtering even based on the Mapping Alignment Score (MAPQ); a threshold of 10-30 is generally used.
+The Bitwise FLAG helps us filter out reads that are uniquely mapped and concordantly mapped in the case of paired-end reads. Similarly, you can consider filtering even based on the Mapping Alignment Score (MAPQ); a threshold of 10-30 is generally used.
 
 First, we need to convert SAM files to BAM files. BAM or Binary Alignment Map is the binary equivalent of SAM files and stores the same data in a compressed manner.
 Next, we sort the BAM file by genomic coordinate before using them further. 
-Finally, we filter out uniquely mapping reads. We discard multi-mapping reads so as to reduce false positives and increase confidence in site discovery.
+Finally, we filter out uniquely mapping reads. We discard multi-mapping reads to reduce false positives and increase confidence in site discovery.
 
 We will use SAMtools and Sambamba for this step. You can download it from http://www.htslib.org/ and https://lomereiter.github.io/sambamba/ respectively.
 
@@ -492,9 +492,9 @@ You can run the same command for each sample or use the script samples_postalign
 
 Peak calling is the most important step of ChIP-Seq analysis that helps identify genomic regions to which transcription factors or histone marks are bound. Identifying such genomic regions helps us understand which genes are being regulated.
 
-The binding sites to which the proteins bound appear as areas with high read density and are known as peaks. Sequencing of DNA from ChIP samples is performed randomly from either end and it does not cover the entire length of enriched DNA fragment.
+The binding sites to which the proteins are bound appear as areas with high read density and are known as peaks. Sequencing of DNA from ChIP samples is performed randomly from either end and it does not cover the entire length of the enriched DNA fragment.
 
-The 5’ end of the selected fragments from groups on the positive and negative strand centered around the binding site. (See the figure below). These binding patterns forms a characteristic bimodal distribution or paired peaks.
+The 5’ end of the selected fragments from groups on the positive and negative strand centered around the binding site. (See the figure below). These binding patterns form a characteristic bimodal distribution or paired peaks.
 
 <p> </br> </p>
 <p align="center">
@@ -507,7 +507,7 @@ The 5’ end of the selected fragments from groups on the positive and negative 
 
 *Citation: Wilbanks EG, Facciotti MT (2010) Evaluation of Algorithm Performance in ChIP-Seq Peak Detection. PLoS ONE 5(7): e11471. https://doi.org/10.1371/journal.pone.0011471*
 
-This characteristic shape obtained from ChIP-Seq samples are assessed using statistical measures and compared against background (input samples) to confirm whether the site of enrichment is really a potential binding site.
+This characteristic shape obtained from ChIP-Seq samples is assessed using statistical measures and compared against background (input samples) to confirm whether the site of enrichment is really a potential binding site.
 
 <p> </br> </p>
 <p align="center">
@@ -536,11 +536,11 @@ Primarily, the characteristic bimodal distribution of ChIP-seq samples assists i
 
 In this tutorial, we will be using the peak caller MACS2 or Model-Based Analysis of ChIP-Seq. MACS2 is written in Python and you can download it from https://github.com/macs3-project/MACS
 
-Download MACS2, install it and add it to your path. MACS2 requires Python to function so ensure you have Python installed and added to your path as well.
+Download MACS2, install it, and add it to your path. MACS2 requires Python to function so ensure you have Python installed and added to your path as well.
 
 MACS2 performs peak calling by taking advantage of the bimodal distribution of ChIP-Seq reads. It takes into account information about sequencing read position, its orientation as well as the influence of genome complexity on the signals.
 
-MACS2 works for both single-end and paired-end reads. It works for ChIP sample alone or along with an input sample that increases specificity of peak calls.
+MACS2 works for both single-end and paired-end reads. It works for ChIP sample alone or along with an input sample that increases the specificity of peak calls.
 
 Let’s go over the steps followed MACS2 algorithm in detail.
 
@@ -548,29 +548,29 @@ Let’s go over the steps followed MACS2 algorithm in detail.
 
 A good sequencing depth can help identify all true binding sites in the sample. But sequencing is susceptible to errors and these can give rise to duplicates.
 
-Here reads with the same start position are considered as duplicates. There can be two types of duplicates:
-- Bad duplicates: These can arise from PCR overamplification or biases in sequence library preparation. Also blacklisted or repeat regions in the genome with excessively high signal can contribute to duplicates. Such duplicates add noise to final peak calls and hence need to be eliminated.
-- Good duplicates: Increasing sequencing depth can actually result in valid biological duplicates or reads that map at the same position and are biologically relevant. Removal of biological duplicates can lead to under-estimated ChIP-Seq signals.
+Here reads with the same start position are considered duplicates. There can be two types of duplicates:
+- Bad duplicates: These can arise from PCR overamplification or biases in sequence library preparation. Also blacklisted or repeat regions in the genome with excessively high signals can contribute to duplicates. Such duplicates add noise to final peak calls and hence need to be eliminated.
+- Good duplicates: Increasing sequencing depth can result in valid biological duplicates or reads that map at the same position and are biologically relevant. Removal of biological duplicates can lead to under-estimated ChIP-Seq signals.
 
-MACS2 deals with duplicates in several ways via –KEEP-DUP command. The default auto option makes MACS calculate the maximum tags at the exact same location based on binomial distribution using 1e-5 as p-value cutoff.
+MACS2 deals with duplicates in several ways via –KEEP-DUP command. The default auto option makes MACS calculate the maximum tags at the exact same location based on binomial distribution using 1e-5 as the p-value cutoff.
 The all option keeps every tag.
 
 You can specify an integer and accordingly MACS will keep at the most that many tags at the same location. By default, it keeps only one read at the same location. 
 
 **Step 2: Modeling the shift size**
 
-As mentioned previously, ChIP sequencing is performed randomly from either end. This results in reads that represent ends of the fragments instead of the actual protein-DNA binding sites.
+As mentioned previously, ChIP sequencing is performed randomly from either end. This results in reads that represent the ends of the fragments instead of the actual protein-DNA binding sites.
 
 The 5’end of the reads are centered around the binding site both on the positive and negative strand thus resulting in a bimodal distribution. For single-end reads, the distance between the forward and reverse strand distribution is used to estimate the fragment size.
 
-In case of paired-end reads, MACS2 estimates fragment size from the insert size of the paired reads.
+In the case of paired-end reads, MACS2 estimates fragment size from the insert size of the paired reads.
 
 Estimation of fragment size helps shift the 5’end fragments of Chip-Seq samples towards the 3’ direction to better estimate the true binding site. The distance by which the 5’end ends are to be moved is referred to as shift size.
 
-To model the shift size, MACS2 scans the genome with a window of length 2 x bandwidth and identifies regions with reads more than mfold enriched relative to random tag distribution. 
-Bandwith refers to the sonication size or the size of DNA fragments that are sheared after immunoprecipitation. Mfold is high-confidence fold-enrichment.
+To model the shift size, MACS2 scans the genome with a window of length 2 x bandwidth and identifies regions with reads more than the mfold enriched relative to random tag distribution. 
+Bandwidth refers to the sonication size or the size of DNA fragments that are sheared after immunoprecipitation. Mfold is high-confidence fold-enrichment.
 
-Then MACS2 randomly samples 1000 of these high quality peaks, separates the positive and negative strands, and aligns them at the midpoint between their centers. (See the figure below)
+Then MACS2 randomly samples 1000 of these high-quality peaks, separates the positive and negative strands, and aligns them at the midpoint between their centers. (See the figure below)
 
 <p> </br> </p>
 <p align="center">
@@ -587,38 +587,38 @@ The distance between the modes of the forward and reverse strand peaks in the al
 
 **Step 3: Peak detection**
 
-Prior to peak detection, for experiments with control sample, MACS2 linearly scales the total control read count to be the same as the total ChIP read count.
+Before peak detection, for experiments with control samples, MACS2 linearly scales the total control read count to be the same as the total ChIP read count.
 
-The read distribution of ChIP-Seq data is modelled as Poisson distribution. 
+The read distribution of ChIP-Seq data is modelled as the Poisson distribution. 
 
-Technically, Poisson distribution helps predict the probability of a given number of events happening in a fixed interval of time. But here we use Poisson distribution to model read distribution in ChIP-Seq because:
+Technically, the Poisson distribution helps predict the probability of a given number of events happening in a fixed interval of time. But here we use Poisson distribution to model read distribution in ChIP-Seq because:
 - We are dealing with count data.
 - The distribution is applicable for data with zero or positive integers.
 - And the variance is a function of mean.
 
 For Poisson distribution, variance is equal to mean and is sometimes written as lambda. It refers to the rate of the event.
 
-However, count data such as read distribution tends to have variance larger than mean which is referred to as overdispersion. This is generally modelled by negative binomial distribution and there are a couple of peak callers that implement the same.
+However, count data such as read distribution tends to have variance larger than the mean which is referred to as overdispersion. This is generally modelled by negative binomial distribution and there are a couple of peak callers that implement the same.
 
 MACS2 uses Poisson distribution to model tag distribution along the genome but with a slight modification.
 
-First it shifts every tag by d/2, then it slides a 2d window across the genome to find candidate peaks with a significant tag enrichment. The significance is measured by p-value from Poisson distribution with λBG parameter.
+First, it shifts every tag by d/2, then it slides a 2d window across the genome to find candidate peaks with a significant tag enrichment. The significance is measured by p-value from Poisson distribution with λBG parameter.
 
-λBG (BG refers to background genome) captures both mean and variance of the distribution. It is the expected number of reads in that window.
+λBG (BG refers to background genome) captures both the mean and variance of the distribution. It is the expected number of reads in that window.
 
 To calculate λBG , MACS2 requires the effective genome size. Effective genome size is defined as the genome size which can be sequenced. Due to the repetitive features on the chromosomes, the actual mappable genome size is smaller than the original size, about 90% or 70% of the genome size.
 
-For human genome, it is 2.7e9. MACS2 provides pre-computed values for human, mouse, worm and fly.
+For the human genome, it is 2.7e9. MACS2 provides pre-computed values for human, mouse, worm and fly genomes.
 
-Now coming to the modification that MACS2 uses to model read distribution from ChIP-Seq. In control samples, read distributions have fluctuations and biases arising from DNA amplification and sequencing, genome copy number variation and chromatin structure.
+Now coming to the modification that MACS2 uses to model read distribution from ChIP-Seq. In control samples, read distributions have fluctuations and biases arising from DNA amplification and sequencing, genome copy number variation ,and chromatin structure.
 
 Therefore instead of using a uniform λBG estimated from the whole genome, MACS2 uses a dynamic parameter, λlocal, defined for each candidate peak as:
 
 λlocal = max(λBG, [λ1k,] λ5k, λ10k)
-where λ1k, λ5k and λ10k are λ estimated from the 1 kb, 5 kb or 10 kb window centered at the peak location in the control sample, or the ChIP-Seq sample when a control sample is not available (in which case λ1k is not used)
+where λ1k, λ5k ,and λ10k are λ estimated from the 1 kb, 5 kb ,or 10 kb window centered at the peak location in the control sample, or the ChIP-Seq sample when a control sample is not available (in which case λ1k is not used)
 
 λlocal captures local biases. This makes MACS2 robust against the occasional low read count in certain relevant genomic regions. It also removes potential false positives due to local biases (that is, peaks significantly under λBG, but not under λlocal).
-MACS2 calculates p-value for every candidate peak using λlocal. 
+MACS2 calculates the p-value for every candidate peak using λlocal. 
 
 Overlapping enriched peaks are merged, and each read position is extended d bases from its center. The location with the highest fragment pileup, referred to as the summit, is predicted as the precise binding location.
 
@@ -660,7 +660,7 @@ Details of the above-mentioned command are:
 - broad: To identify broad peaks, MACS tries to combine broad regions by putting nearby highly enriched regions into a broad region with loose cutoff.
 - broad-cutoff: Cutoff for broad region.
 - g: The mappable genome size or effective genome size. In this case, the default hs -- 2.7e9 is applicable for human genome.
-- keep-dup: It controls the MACS behavior towards duplicate tags at the exact same location. The default auto option makes MACS calculate the maximum tags at the exact same location based on binomial distribution using 1e-5 as p-value cutoff.
+- keep-dup: It controls the MACS behavior towards the duplicate tags at the exact same location. The default auto option makes MACS calculate the maximum tags at the exact same location based on binomial distribution using 1e-5 as p-value cutoff.
 - outdir: Specify the directory to store macs2 output files
 - n: Specify the name string of the experiment that MACS can use while creating output files.
 
@@ -677,7 +677,7 @@ Details of the above-mentioned command are:
 - c: Control/Input File. In this case, it is H3K4me1_GM12878_input_rep1_aln.bam
 - f : Format of the input file. In this case, it is paired-end BAM file, hence f is specified as BAMPE
 - g: The mappable genome size or effective genome size. In this case, the default hs -- 2.7e9 is applicable for human genome.
-- keep-dup: It controls the MACS behavior towards duplicate tags at the exact same location. The default auto option makes MACS calculate the maximum tags at the exact same location based on binomial distribution using 1e-5 as p-value cutoff.
+- keep-dup: It controls the MACS behavior towards the duplicate tags at the exact same location. The default auto option makes MACS calculate the maximum tags at the exact same location based on binomial distribution using 1e-5 as p-value cutoff.
 - outdir: Specify the directory to store macs2 output files
 - n: Specify the name string of the experiment that MACS can use while creating output files.
 - B: With this flag specified, MACS stores the fragment pileup, control lambda in bedGraph files.
@@ -711,9 +711,9 @@ Now coming to the output files generated by MACS:
 1. NAME_peaks.xls is a tabular file which contains information about called peaks. 
 2. NAME_peaks.narrowPeak is BED6+4 format file which contains the peak locations together with peak summit, p-value, and q-value. 
 3. NAME_summits.bed is in BED format, which contains the peak summits locations for every peak. The 5th column in this file is the same as what is in the narrowPeak file. 
-4. NAME_peaks.broadPeak is in BED6+3 format which is similar to narrowPeak file, except for missing the 10th column for annotating peak summits. This file and the gappedPeak file will only be available when --broad is enabled. 
+4. NAME_peaks.broadPeak is in BED6+3 format which is similar to the narrowPeak file, except for missing the 10th column for annotating peak summits. This file and the gappedPeak file will only be available when --broad is enabled. 
 5. NAME_peaks.gappedPeak is in BED12+3 format which contains both the broad region and narrow peaks. 
-6. NAME_model.r is an R script which you can use to produce a PDF image of the model based on your data. This file is not available for paired-end reads or BAMPE format as fragment length is determined by insert size of paired end reads and not from the bimodal distribution of plus and minus strand reads.
+6. NAME_model.r is an R script which you can use to produce a PDF image of the model based on your data. This file is not available for paired-end reads or BAMPE format as fragment length is determined by the insert size of paired end reads and not from the bimodal distribution of plus and minus strand reads.
 7. NAME_treat_pileup.bdg and NAME_control_lambda.bdg files are in bedGraph format The NAME_treat_pielup.bdg contains the pileup signals from ChIP/treatment sample. The NAME_control_lambda.bdg contains local biases estimated for each genomic location from the control sample, or from treatment sample when the control sample is absent. 
 
 As per the commands that we have executed above, we should get 4 files each for histone marks( RScript, gappedPeak, broadPeak and .xls file) and 5 files each for transcription factor (narrowPeak, .xls file, summits.bed file, control_lambda.bdg, treat_pileup.bdg).
@@ -723,28 +723,28 @@ As per the commands that we have executed above, we should get 4 files each for 
 
 ### 6. ChIP-specific Quality Control <a name="chip_qc"></a>
 
-ChIP-seq data quality is again examined via specific metrics after genomic alignment. ChIPQC is an R/Bioconductor package that provides a comprehensive ChIP-seq-specific quality control analysis.
+ChIP-seq data quality is again examined via specific metrics after genomic alignment. ChIPQC is a R/Bioconductor package that provides a comprehensive ChIP-seq-specific quality control analysis.
 
 When conducting ChIP-QC analysis, it is advisable to use RStudio. Please install RStudio from https://www.rstudio.com/
 
-To conduct ChIP-QC analysis, you will also need the blacklist region file for human genome (GRCh38).  Please download the file ENCFF356LFX from https://www.encodeproject.org/annotations/ENCSR636HFF/
+To conduct ChIP-QC analysis, you will also need the blacklist region file for the human genome (GRCh38).  Please download the file ENCFF356LFX from https://www.encodeproject.org/annotations/ENCSR636HFF/
 
 Once downloaded, rename and save the file as GRCh38_unified_blacklist.bed in the blacklist folder in the data folder.
 
-Blacklist regions comprise of genomic regions that tend to have a very high ratio of multi-mapping to unique mapping reads and high variance in mappability. They include repeat elements such as satellite, centromeric and telomeric repeats.
+Blacklist regions comprise genomic regions that tend to have a very high ratio of multi-mapping to unique mapping reads and high variance in mappability. They include repeat elements such as satellite, centromeric and telomeric repeats.
 
-Such regions have anomalous or excessively high signal in next-generation sequencing experiments independent of cell line or experiment. The removal of the ENCODE blacklist is an essential quality measure when analyzing functional genomics data.
+Such regions have anomalous or excessively high signals in next-generation sequencing experiments independent of cell lines or experiments. The removal of the ENCODE blacklist is an essential quality measure when analyzing functional genomics data.
 
-Before we run the ChIP-specific analysis, we need to create a sample sheet contains metadata information for our dataset. It includes the following columns:
+Before we run the ChIP-specific analysis, we need to create a sample sheet contains the metadata information for our dataset. It includes the following columns:
 * SampleID: Identifier string for sample
-* Tissue, Factor, Condition: Identifier strings for up to three different experimental parameters such as tissue/cell line, factor indicates the name of the protein you are studying (histone mark or TF) and condition would be treatment/no treatment etc. In our case, we simply want to differentiate between our three sample sets (H3K4me1_GM12878, Nfxl1_GM12878, Nfxl1_K562) and that’s what we have set our Condition column as.
+* Tissue, Factor, Condition: Identifier strings for up to three different experimental parameters such as tissue/cell line, factor indicates the name of the protein you are studying (histone mark or TF) and condition would be treatment/no treatment ,etc. In our case, we simply want to differentiate between our three sample sets (H3K4me1_GM12878, Nfxl1_GM12878, Nfxl1_K562) and that’s what we have set our Condition column as.
 If you don’t have information, then set values to NA.
-* Replicate: Replicate number of sample
+* Replicate: Replicate number of each sample
 * bamReads: file path for BAM file containing aligned reads for ChIP sample
 * ControlID: an identifier string for the control sample
-* bamControl: file path for bam file containing aligned reads for control sample
-* Peaks: path for file containing peaks for sample
-* PeakCaller: Identifier string for peak caller used. In our case we have set it to “bed”.
+* bamControl: file path for bam file containing aligned reads for the control sample
+* Peaks: path for file containing peaks for the sample
+* PeakCaller: Identifier string for peak caller used. In our case, we have set it to “bed”.
 
 Both the meta_samples_chipqc.csv file and the chipqc.R script has been provided in the **tutorial_data and scripts folder in the repository respectively**. Please change the file path in the meta_samples_chipqc.csv to suit your system.
 
@@ -856,7 +856,7 @@ Also the plot shows that ChIP samples are more enriched than input samples.
 </p> 
 
 
-RiBL% is the percentage of reads in the blacklisted regions. Blacklisted regions are genomic regions mostly comprising of repeats that have excessively high signal in NGS experiments and add noise to the true signal.
+RiBL% is the percentage of reads in the blacklisted regions. Blacklisted regions are genomic regions mostly comprising of repeats that have excessively high signals in NGS experiments and add noise to the true signal.
 It is best to have low RiBL percentages. For our dataset, we observe the same in the report summary as well as in the plot.
 
 **Enrichment in expected genomic regions**
@@ -953,28 +953,28 @@ These blacklist filtered files are available in **the tutorial_data folder in th
 
 ### 7. Handling Replicates with IDR and BedTools <a name="replicates"></a>
 
-Comparative analysis of ChIP-Sequencing data helps compare the binding of protein of interest either between replicates or under different physiological conditions. 
+Comparative analysis of ChIP-Sequencing data helps compare the binding of the protein of interest either between replicates or under different physiological conditions. 
 
-Every experimental design requires at least 2-3 biological replicates to overcome the amount of variability in the data that one would get with only sample. Simply put, with more than one replicate you could observe a common trend in your data more frequently for the given condition thus strengthening your findings.
+Every experimental design requires at least 2-3 biological replicates to overcome the amount of variability in the data that one would get with only one sample. Simply put, with more than one replicate you could observe a common trend in your data more frequently for the given condition thus strengthening your findings.
 
 Technically multiple replicates measuring the same biological conditions should have high consistency. But that is not always the case. One reason for this is that every comparison in ChIP-Seq data analysis is strongly influenced by the thresholds that were applied during the peak calling step.
 
-To evaluate consistency between replicates in ChIP-Seq, several methods have been designed such as finding overlapping peaks and assessing difference in binding regions and complex statistical methods that evaluate reproducibility between replicates.
+To evaluate consistency between replicates in ChIP-Seq, several methods have been designed such as finding overlapping peaks and assessing the difference in binding regions and complex statistical methods that evaluate reproducibility between replicates.
 
 #### 7a. Handling Replicates with IDR
 
 IDR stands for Irreproducibility Discovery Rate. The ENCODE project developed the irreproducible discovery rate (IDR), as a metric to identify genuine peaks based on their reproducibility across replicates.
 
-IDR begins with generating a peak list with a lenient threshold will contain both genuine peaks and noise. The peaks in the list are ranked, e.g. on their fold enrichment or significance, these ranks will correlate well for genuine peaks, while the noise will show no correlation. 
+IDR begins with generating a peak list with a lenient threshold that will contain both genuine peaks and noise. The peaks in the list are ranked, e.g. on their fold enrichment or significance, these ranks will correlate well for genuine peaks, while the noise will show no correlation. 
 
-Further, IDR uses a statistical method to find the point in the curve at which the heterogeneity of the association between replicate ranks sharply increases. This decay point, from which no consistency in correspondence is observed, serves as internal indicator of the change from signal to noise.
+Further, IDR uses a statistical method to find the point in the curve at which the heterogeneity of the association between replicate ranks sharply increases. This decay point, from which no consistency in correspondence is observed, serves as an internal indicator of the change from signal to noise.
 
 As a metric to evaluate consistency between replicates, IDR has several advantages:
 - It does not take into account initial cut-offs used during peak calling as they tend to be different for different peak callers. This means that you can compare peak lists obtained from different peak callers.  
 - It does not depend on specific thresholds, so all peaks are considered.
 - It is based on ranks and does not require the input to be scaled by a particular value.
 
-IDR is not recommended for broad signals from histone marks as there is ambiguous overlap of broad peaks.
+IDR is not recommended for broad signals from histone marks as there is an ambiguous overlap of broad peaks.
 
 The ENCODE3 guidelines suggest that IDR should be conducted to compare the following pairs:
 - True replicates
@@ -1062,7 +1062,7 @@ wc -l ./idr/Nfxl1_GM12878_idr0.05_filt.narrowPeak
 ```
 
 **Output Files of IDR**
-The output file mimics the input file type which in our case is .narrowPeak file. Apart from that, IDR also produces plots pertaining to the samples.
+The output file mimics the input file type which in our case is the .narrowPeak file. Apart from that, IDR also produces plots pertaining to the samples.
 
 Some interesting features about the narrowPeak file obtained from IDR include:
 - Column no 5: Contains the scaled IDR value, min(int(log2(-125IDR), 1000). e.g. peaks with an IDR of 0 have a score of 1000, idr 0.05 have a score of int(-125log2(0.05)) = 540, and idr 1.0 has a score of 0.
@@ -1087,7 +1087,7 @@ Here are the details of the plots as mentioned by the creators of IDR:
 
 #### 7b. Overlapping of Peaks with BedTools
 
-Overlap of peak regions is a straightforward approach to compare peaks across the samples and develop consensus peak set. It helps us understand whether a peak is found in both samples and gives us a rough idea of similarity in peak regions between different samples.
+Overlap of peak regions is a straightforward approach to compare peaks across the samples and develop a consensus peak set. It helps us understand whether a peak is found in both samples and gives us a rough idea of the similarity in peak regions between different samples.
 
 However, this approach underestimates the similarity because it does not take into account the different thresholds used during peak calling.
 
@@ -1095,7 +1095,7 @@ According to the ENCODE3 guidelines, IDR analysis is not recommended for histone
 
 In this tutorial, we will restrict ourselves to finding a simple overlap of peaks in our histone marks sample.
 
-We will use bedtools for this operation. Bedtools is developed by QuinlanLab at Utah University and it assists in genomic arithmetic i.e. intersect, merge, count, complement and shuffle genomic intervals from multiple files in different formats such as BAM, BED, GFF/GTF, VCF.
+We will use bedtools for this operation. Bedtools is developed by QuinlanLab at Utah University and it assists in genomic arithmetic i.e. intersect, merge, count, complement ,and shuffle genomic intervals from multiple files in different formats such as BAM, BED, GFF/GTF, VCF.
 
 You can download bedtools from https://bedtools.readthedocs.io/en/latest/index.html. After installing and adding it to your path, run the following commands.
 
@@ -1119,7 +1119,7 @@ These consensus peak files generated by IDR and BedTools are available in **the 
 
 ### 8 . Visualization of ChIP-Seq Reads <a name="visualization"></a>
 
-Visualization of data obtained from ChIP-Seq analysis gives us an idea about the data quality, aids in understanding the results, assists in identifying interesting candidate genes and allows us to integrate the data with other sources of information.
+Visualization of data obtained from ChIP-Seq analysis gives us an idea about the data quality, aids in understanding the results, assists in identifying interesting candidate genes, and allows us to integrate the data with other sources of information.
 
 Among the various techniques to visualize enrichment patterns, we will be exploring genomic coverage files and genome browsers using deepTools and IGV.
 
@@ -1127,9 +1127,9 @@ You can download and install them from https://deeptools.readthedocs.io/en/devel
 
 #### 8a. Genome Coverage Files
 
-Visualization of data can be carried immediately after alignment to reference genome or after peak calling. In the first case, BAM files containing aligned reads can be loaded to genome browsers like UCSC genome browser.
+Visualization of data can be carried out immediately after alignment to reference genome or after peak calling. In the first case, BAM files containing aligned reads can be loaded to genome browsers like the UCSC genome browser.
 
-But in regions with high density of reads (such as peaks), such a visualization does not scale well.   Instead of visualising each single read, a genomic coverage file can be generated to summarise the number of reads overlapping each position in the genome.
+But in regions with a high density of reads (such as peaks), such a visualization does not scale well.   Instead of visualising every single read, a genomic coverage file can be generated to summarise the number of reads overlapping each position in the genome.
 
 Since sequenced reads represent only ends of the chromatin-immunoprecipitated DNA fragments, reads are extended to 200 bp in 3’ direction as 200 bp is the rough estimate of fragment size selected in ChIP experiments.
 This helps smooth the signal and ensures that summits of the peak appear above the binding sites. To compare different samples, read counts at each position are normalised to one million of mapped reads using scaling factors such as  Reads Per Kilobase per Million mapped reads (RPKM), counts per million (CPM), bins per million mapped reads (BPM) and 1x depth (reads per genome coverage, RPGC).
@@ -1169,7 +1169,7 @@ Here, we are using bamCompare only for our ChIP samples and not for input sample
 
 #### 8b. Profile Plots and HeatMaps
 
-Profile Plots and Heatmaps give a visual idea about read density around transcription start sites. Many regulatory elements’ binding sites (that regulate transcription process and switch on/off genes) are located near the transcription sites (TSS) of the target genes.
+Profile Plots and Heatmaps give a visual idea about the read density around transcription start sites. Many regulatory elements’ binding sites (that regulate transcription process and switch on/off genes) are located near the transcription sites (TSS) of the target genes.
 
 These plots give a global evaluation of enrichment around the TSS. Before plotting the data, we need an intermediate file that contains data in a format that can be averaged along multiple genomic regions and plotted.
 
@@ -1391,7 +1391,7 @@ Peak coordinates obtained in our BED files indicate the likely locations of wher
 Annotation of peaks simply involves assignment of gene symbols and other characteristics that are applicable to the peak coordinates. 
 
 The genomic context of the binding site of the TFs or Histone marks helps understand its function in the cell. Genomic context is generally studied in terms of genomic location and distance from genes.
-This make sense since most cis-regulatory elements are located near the transcription start sites of the target genes.
+This make sense, since most cis-regulatory elements are located near the transcription start sites of the target genes.
 
 For this analysis, we will be using R package ChIPSeeker. Apart from annotating genes, it provides visualization functions to assesses peak coverage and profile of peaks.
 
@@ -1434,7 +1434,7 @@ names(files) <- c("H3K4me1_GM12878", "Nfxl1_GM12878", "Nfxl1_K562")
 
 Let’s begin annotating our peaks. We will be using the annotation database EnsDb.Hsapiens.v86. These are generated from ENSEMBL. Since UCSC-style chromosome names are used we have to change the style of the chromosome names from Ensembl to UCSC.
 
-The annotatePeak function performs peak annotation uses the nearest gene method to identify nearest Transcription Start Sites (TSS) to the given genomic coordinates and also allows you to specify a max distance from the TSS to cover the binding site locations accurately.  Here, we specify a distance of 2.5kb upstream and downstream from TSS.
+The annotatePeak function performs peak annotation and it uses the nearest gene method to identify nearest Transcription Start Sites (TSS) to the given genomic coordinates. It also allows you to specify a max distance from the TSS to cover the binding site locations accurately.  Here, we specify a distance of 2.5kb upstream and downstream from TSS.
 
 Further, we plot the genomic feature distribution and the distribution of TF-binding loci relative to TSS.
 
@@ -1692,7 +1692,7 @@ The known motif enrichment is performed first since it is usually faster. Finall
 We will use findMotifsGenome.pl program which is a wrapper that helps set up the data for analysis using the HOMER motif discovery algorithm.  By default, this will perform de novo motif discovery as well as check the enrichment of known motifs.
 
 Please install HOMER in your system using the following guide. [http://homer.ucsd.edu/homer/introduction/install.html] 
-Once you have installed HOMER, also download the necessary packages using configureHomer.pl script. These packages are human-o, human-p, hg38.
+Once you have installed HOMER, also download the necessary packages using configureHomer.pl script. These packages are human-o, human-p and hg38.
 
 Now add HOMER to your path and run the following commands:
 
@@ -1755,7 +1755,7 @@ For each motif, it indicates the sequence (represented in a logo), a p-value cor
 ## Conclusion <a name="conclusion"></a>
 
 ChIP-sequencing is an experiment based on antibody immunoprecipitation (IP) performed on a population of cells to define protein binding sites in the genome using high-throughput sequencing.
-It is used in epigenomic analysis: to study gene expression prior to their expression.
+It is used in epigenomic analysis: to study genes prior to their expression.
 
 ChIP-sequencing helps study the activity of regulatory elements such as transcription factors and histone marks which regulate or turn on/off genes. After extracting data about DNA to which the proteins bind from the wet-lab experiement, 
 the ChIP-sequencing workflow generally comprises of:

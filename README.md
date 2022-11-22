@@ -955,9 +955,9 @@ These blacklist filtered files are available in **the tutorial_data folder in th
 
 Comparative analysis of ChIP-Sequencing data helps compare the binding of the protein of interest either between replicates or under different physiological conditions. 
 
-Every experimental design requires at least 2-3 biological replicates to overcome the amount of variability in the data that one would get with only one sample. Simply put, with more than one replicate you could observe a common trend in your data more frequently for the given condition thus strengthening your findings.
+Every experimental design requires at least 2-3 biological replicates to overcome the amount of variability in the data that one would get with only one sample. With more than one replicate you could observe a common trend in your data more frequently for the given condition thus strengthening your findings.
 
-Technically multiple replicates measuring the same biological conditions should have high consistency. But that is not always the case. One reason for this is that every comparison in ChIP-Seq data analysis is strongly influenced by the thresholds that were applied during the peak calling step.
+Technically, multiple replicates measuring the same biological conditions should have high consistency. But that is not always the case. One reason for this is that every comparison in ChIP-Seq data analysis is strongly influenced by the thresholds that were applied during the peak calling step.
 
 To evaluate consistency between replicates in ChIP-Seq, several methods have been designed such as finding overlapping peaks and assessing the difference in binding regions and complex statistical methods that evaluate reproducibility between replicates.
 
@@ -972,7 +972,6 @@ Further, IDR uses a statistical method to find the point in the curve at which t
 As a metric to evaluate consistency between replicates, IDR has several advantages:
 - It does not take into account initial cut-offs used during peak calling as they tend to be different for different peak callers. This means that you can compare peak lists obtained from different peak callers.  
 - It does not depend on specific thresholds, so all peaks are considered.
-- It is based on ranks and does not require the input to be scaled by a particular value.
 
 IDR is not recommended for broad signals from histone marks as there is an ambiguous overlap of broad peaks.
 
@@ -1038,7 +1037,6 @@ To run the IDR analysis, we have used the following parameters:
 - output-file: path and name of output file
 - soft-idr-threshold: Report statistics for peaks with a global idr below this value but return all peaks with an idr below --idr. --idr is IDR_THRESHOLD which only return peaks with a global idr threshold below this value
 - plot: plots the results
-- use-best-multisummit-IDR: Sets the IDR value for a group of multi summit peaks (a group of peaks with the same chr/start/stop but different summits) to the best value across all of these peaks. This is a work around for peak callers that don't do a good job splitting scores across multi summit peaks.
 
 Now that we have conducted IDR analysis, lets extract our consensus set of peaks for further downstream analysis. We will use only those peaks that cross the IDR threshold of 0.05.
 
@@ -1082,7 +1080,7 @@ These are the plots obtained for our transcription factor samples in the dataset
 Here are the details of the plots as mentioned by the creators of IDR:
 - Upper Left: Replicate 1 peak ranks versus replicate 2 peak ranks - peaks that do not pass the specified IDR threshold are coloured red.
 - Upper Right: Replicate 1 log10 peak scores versus replicate 2 log10 peak scores - peaks that do not pass the specified IDR threshold are coloured red.
-- Bottom Row: Peaks rank versus IDR scores are plotted in black for each replicate. The overlayed boxplots display the distribution of IDR values in each 5% quantile. The IDR values are thresholded at the optimization precision - 1e-6 .
+- Bottom Row: Peaks rank versus IDR scores are plotted in black for each replicate. The overlayed boxplots display the distribution of IDR values in each 5% quantile. 
 
 
 #### 7b. Overlapping of Peaks with BedTools

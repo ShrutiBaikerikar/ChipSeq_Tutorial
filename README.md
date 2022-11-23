@@ -1138,7 +1138,7 @@ BigWig files are created from wiggle (wig) type files. Wig format contains data 
 
 To create our bigWig files, we will be using deeptools. deepTools is a suite of Python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq etc.
 
-Considering you have added deeptools to your path, run the following command. Remember to edit the ‘-p parameter’ to adapt to the number of cores in your system.
+Considering you have added deeptools to your path, run the following command. 
 
 ```bash
 
@@ -1154,7 +1154,7 @@ You should run this command for each of your replicate file and not your input f
 
 DeepTools offers two commands to create genomic coverage files: bamCoverage and bamCompare. bamCoverage takes a single BAM file and returns a bigWig file. bamCompare normalizes two files to each other (i.e. ChIP sample relative to input) and returns a single bigWig file.
 
-Here, we are using bamCompare only for our ChIP samples and not for input samples. Details of the above-mentioned commands are:
+Here, we are using bamCoverage only for our ChIP samples and not for input samples. Details of the above-mentioned commands are:
 - b/bam: BAM file to process
 - o/outFileName: output File name
 - binSize/bs: Size of the bins, in bases, for the output of the bigwig file

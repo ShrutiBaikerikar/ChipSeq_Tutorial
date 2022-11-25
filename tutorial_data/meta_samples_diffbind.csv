@@ -1,0 +1,5 @@
+SampleID,Tissue,Factor,Condition,Replicate,bamReads,ControlID,bamControl,Peaks,PeakCaller
+Nfxl1_11,GM12878,Nfxl1,Nfxl1_GM12878,1,./chipseq_r/data/bam/Nfxl1_GM12878_rep1_aln_sorted.bam,Nfxl1_i11,./chipseq_r/data/bam/Nfxl1_GM12878_input_rep1_aln_sorted.bam,./chipseq_r/data/peaks/Nfxl1_GM12878_rep1_blfilt_peaks.narrowPeak,narrow
+Nfxl1_12,GM12878,Nfxl1,Nfxl1_GM12878,2,./chipseq_r/data/bam/Nfxl1_GM12878_rep2_aln_sorted.bam,Nfxl1_i12,./chipseq_r/data/bam/Nfxl1_GM12878_input_rep2_aln_sorted.bam,./chipseq_r/data/peaks/Nfxl1_GM12878_rep2_blfilt_peaks.narrowPeak,narrow
+Nfxl1_21,K562,Nfxl1,Nfxl1_K562,1,./chipseq_r/data/bam/Nfxl1_K562_rep1_aln_sorted.bam,Nfxl1_i21,./chipseq_r/data/bam/Nfxl1_K562_input_rep1_aln_sorted.bam,./chipseq_r/data/peaks/Nfxl1_K562_rep1_blfilt_peaks.narrowPeak,narrow
+Nfxl1_22,K562,Nfxl1,Nfxl1_K562,2,./chipseq_r/data/bam/Nfxl1_K562_rep2_aln_sorted.bam,Nfxl1_i22,./chipseq_r/data/bam/Nfxl1_K562_input_rep2_aln_sorted.bam,./chipseq_r/data/peaks/Nfxl1_K562_rep2_blfilt_peaks.narrowPeak,narrow

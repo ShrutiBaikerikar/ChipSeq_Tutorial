@@ -1,4 +1,4 @@
-# ChIP-Sequencing Analysis of H3K4me1 and Nfxl1: Motif Analysis Tutorial
+# ChIP-Sequencing Analysis of H3K4me1 and Nfxl1: Differential Binding & Motif Analysis Tutorial
 
 Next Generation Sequencing comprise several technologies that help us understand genome wide expression data and provide high resolution insights even up to the transcript activity. ChIP sequencing or Chromatin Immunoprecipitation followed by high-thoroughput sequencing is one such technique that focuses on protein-DNA interactions.
 
@@ -8,7 +8,7 @@ Differential Binding and Motif Analysis are the common techniques used in downst
 
 Motif analysis helps identify the underlying sequence of the binding site.
 
-In this tutorial, we will be going over a general workflow for Motif Analysis using ChIP Sequencing data. While the procedures demonstrated in this tutorial are the most common steps involved in ChIP Sequencing data analysis, there are a few things you must keep in mind:
+In this tutorial, we will be going over a general workflow for Differential Binding and Motif Analysis using ChIP Sequencing data. While the procedures demonstrated in this tutorial are the most common steps involved in ChIP Sequencing data analysis, there are a few things you must keep in mind:
 * There are many tools available for each step of ChIP Sequencing analysis. You can choose any of them and this choice is heavily influenced by type of data, organism, sample number, statiscal requirements as well as goals of research/analysis.
 * ChIP Sequencing data analysis is not limited to identifying differential binding sites alone; it has many applications and these require separate workflows.
 * The tools used in this tutorial help analyse the chosen dataset but this may not be the same for you. You may have to choose separate tools for your ChIP-Seq data.
@@ -1377,6 +1377,148 @@ https://www.encodeproject.org/files/ENCFF400AJJ/@@download/ENCFF400AJJ.bigWig
      <b>IGV Visual For Nfxl1_GM12878 and Nfxl1_K562 .bigwig and .broadPeak files from our analysis and .bigwig files from ENCODE</b>
 </p>
 
+--------------------------------------------------------------------
+
+### 9. Differential Binding Analysis <a name="diff_bind"></a>
+
+The prime focus of ChIP-Seq analysis is to identify genomic regions to which your protein (Transcription Factor or Histone mark) of interest is bound. However, further analysis can reveal differential occupancy of these proteins under different biological states.
+
+One of the statistical approaches to examine this differential binding is based on the read count. It is a quantitative approach wherein the read count data is used to compare the binding strength of the same protein in one condition against another.
+
+We will be conducting a differential binding analysis of transcription factor Nfxl1 in K562 cells vs GM12878 cells.  K-562 cells are immortalized lymphoblasts obtained from a chronic myelogenous leukemia patient while GM12878 is a lymphoblastoid cell line.
+
+We will be using DiffBind to conduct this analysis. This is a wrapper tool that applies the R/Bioconductor packages DESeq2 or EdgeR to ChIP-seq data. 
+
+Identifying peaks with differential enrichment is conceptually similar to differential gene expression analysis.  Therefore it is possible to use packages DeSeq2 and EdgeR for ChIP-Seq data analysis although they were initially developed for RNA-Seq data analysis.
+
+Here we will be using Diffbind along with DeSeq2.  DiffBind includes functions that support the processing of peak sets, including overlapping and merging peak sets, counting sequencing reads overlapping intervals in peak sets, and identifying statistically significantly differentially bound sites based on evidence of binding affinity (measured by differences in read densities).
+
+For differential binding analysis, it uses statistical procedures defined in DeSeq2 and EgeR. DeSeq2 uses a negative binomial-based generalized linear model to test the null hypothesis that the log fold change of read counts between two conditions is zero.
+
+**Parts of this analysis are compute-intensive and may not be possible to conduct on limited RAM and memory. It’s best to use this script as a reference or you can apply the code to the dummy files provided.**
+
+Let’s begin the analysis.
+
+Open RStudio and open the chipseq-project folder that we created previously. Copy the blacklist filtered .narrowPeak files for all samples from ./macs2/output to ./chipseq_r/peaks folder.
+
+Next, open a new R script and save it as diffbind.R . This script is available in the scripts folder in the repository.
+Start by installing the necessary libraries and loading them.
+
+**COMMANDS**
+
+```r
+
+library(DiffBind)
+library(tidyverse)
+library(BSgenome.Hsapiens.UCSC.hg38)
+library(BiocParallel)
+
+register(SerialParam())
+
+```
+
+Next, we will load our data. We have to create a sample sheet which is a .csv file that contains the metadata of our samples. It contains information like SampleID, which Factor is being studied, Cell/Tissue type being studied, Condition which is an experimental condition like Normal vs Disease etc.
+
+Additionally, it also contains the path or the location of our BAM files and NARROWPEAK files for Nfxl1_K562 and Nfxl1_GM12878 cells. 
+
+We have 4 samples: 2 replicates each for K562 and GM12878 cell lines. Additionally, we have 4 input/control samples. This file, meta_samples_diffbind.csv is available in the tutorial data folder in the repository.
+
+After reading the metadata, we will be reading in the peak sets and creating a DBA object.  Since we have already filtered our peaksets for reads present in the blacklist, we will set dba$config$doBlacklist to FALSE.
+
+```r
+#load meta data of the samples
+samples <- read.csv('D:/chipseq_r/meta_samples_diffbind.csv')
+samples
+
+#Reading the peaksets
+nfxl.peaks <- dba(sampleSheet=samples)
+nfxl.peaks
+nfxl.peaks$config$doBlacklist = FALSE
+
+```
+
+The DBA object shows how many peaks are present in each peakset, as well as the total number of unique peaks after merging overlapping ones (16080). The dimensions of the binding matrix are 4 samples by the 3302 sites that overlap in at least two of the samples.
+
+Next, we will apply greylists. Greylists are similar to blacklist in the sense that they cover genomic regions that show an excessively high or anomalous signal or reads mapping to them but these genomic regions, unlike ENCODE’s blacklist, are cell or sample-specific and they can be customized based on the stringency you require.
+
+**This is a compute intensive step.**
+
+```r
+#Applying greylist
+bs_genome = BSgenome.Hsapiens.UCSC.hg38
+GRCH38.ktype <- seqinfo(bs_genome)
+nfxl.peaks <- dba.blacklist(nfxl.peaks, blacklist=FALSE, greylist = "BSgenome.Hsapiens.UCSC.hg38")
+
+```
+
+Now we can create the affinity binding matrix using the dba.count() function. This is a matrix with scores based on the read counts for every sample (affinity scores), rather than confidence scores for only those peaks called in a specific sample (occupancy scores).
+
+```r
+#Creating affinity binding matrix
+nfxl.counts <- dba.count(nfxl.peaks)
+nfxl.counts
+
+```
+
+Now all 4 samples have counts for 2967 consensus sites. Next, we will normalize the data i.e. scale the raw read counts by the total number of reads in the peaks. DiffBind offers fine-tuned access to normalization but here we will be using the default normalization which makes minimal assumptions about the data.
+
+```r
+#Normalizing
+nfxl.counts <- dba.normalize(nfxl.counts)
+
+```
+
+We will now perform the differential binding analysis. The DiffBind function dba.contrast() is used to specify the model and establish contrasts to be tested against the model. By default, it uses DeSeq2 to perform the analysis.
+We are keeping GM12878 cell as our baseline condition and in the contrasts we are comparing binding sites in K562 vs GM12878.
+
+After defining the model, we fit it using dba.analyze() and then dba.show() reveals the results. At default FDR of 0.05 around 2382 sites are differentially bound.
+
+The differential sites may be retrieved as a GRanges object using dba.report() function. This can be used for further functional analysis.
+
+```r
+#Differential Analysis
+nfxl.model <- dba.contrast(nfxl.counts,design="~ Condition", contrast=c("Condition","Nfxl1_K562","Nfxl1_GM12878"), reorderMeta=list(Condition="Nfxl1_GM12878"))
+nfxl.model
+
+nfxl.model <- dba.analyze(nfxl.model)
+dba.show(nfxl.model,bContrasts=TRUE)
+
+nfxl.db <- dba.report(nfxl.model)
+nfxl.db
+
+```
+
+Further, you can visualize the results. An MA plot with the differential sites superimposed shows how the fold changes between conditions are distributed as the mean concentration of reads counts increases.
+
+A volcano plot shows the log fold change (on the X-axis instead of the Y-axis), compared to the inverse of the FDR on the Y-axis, to show how FDR and LFC are related.
+
+```r
+#Plotting
+dba.plotMA(nfxl.model)
+dba.plotVolcano(nfxl.model)
+
+```
+
+Here are the MA and volcano plots after differential binding analysis.
+
+<p> </br> </p>
+<p align="center">
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/diffbind_image1.png" width="800" height=400 alt="MA plot after DiffBind image"/>
+</p>
+
+<p align="center">
+     <b>MA plot after Differential Binding Analysis of Nfxl1 in K562 vs GM12878 cell lines </b>
+</p>
+
+
+<p> </br> </p>
+<p align="center">
+<img src="https://github.com/ShrutiBaikerikar/ChipSeq_tutorial/blob/main/images/diffbind_image2.png" width="800" height=400 alt="Volcano plot after DiffBind image"/>
+</p>
+
+<p align="center">
+     <b>Volcano plot after Differential Binding Analysis of Nfxl1 in K562 vs GM12878 cell lines </b>
+</p>
 
 --------------------------------------------------------------------
 

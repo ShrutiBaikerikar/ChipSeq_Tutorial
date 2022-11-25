@@ -32,6 +32,7 @@ Let's begin the tutorial with a basic introduction to ChIP Sequencing.
      - [ChIP specific quality control](#chip_qc)
      - [Handling replicates with IDR and bedTools](#replicates)
      - [Visualization](#visualization)
+     - [Differential Binding Analysis](#diff_bind)
      - [Functional Analysis](#functional)
      - [Motif Analysis](#motif)
 - [Conclusion](#conclusion)

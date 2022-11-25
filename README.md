@@ -1523,11 +1523,11 @@ Here are the MA and volcano plots after differential binding analysis.
 
 --------------------------------------------------------------------
 
-### 9. Functional Analysis <a name="functional"></a>
+### 10. Functional Analysis <a name="functional"></a>
 
 Peak coordinates obtained in our BED files indicate the likely locations of where the proteins of interest (in our case H3K4me1 and Nfxl1) bind to the genome. It is important to study these locations as they can give us an idea as to which genes’ expression is influenced by the histone mark and transcription factor being studied.
 
-#### 9a. Peak Annotation and Genomic Context
+#### 10a. Peak Annotation and Genomic Context
 
 Annotation of peaks simply involves assignment of gene symbols and other characteristics that are applicable to the peak coordinates. 
 
@@ -1615,7 +1615,7 @@ Here are the plots of genomic feature distribution and Tf-binding loci distribut
 </p>
 
 
-#### 9b. Functional Enrichment
+#### 10b. Functional Enrichment
 
 After getting peak annotations, we perform functional enrichment analysis to identify major biological processes or functions influenced by these genes.
 For this purpose, we use databases of biological ontologies such as Gene Ontology, KEGG etc.
@@ -1808,7 +1808,7 @@ GM12878 is a lymphoblastoid cell line produced from the blood of a female donor 
 
 --------------------------------------------------------------------
 
-### 10. Motif Analysis <a name="motif"></a>
+### 11. Motif Analysis <a name="motif"></a>
 
 Analysing the DNA sequences underlying peak regions or motifs provides insights into the DNA binding preference of the studied transcription factor or histone mark that recurrently bind at neighbouring positions in the genome.
 

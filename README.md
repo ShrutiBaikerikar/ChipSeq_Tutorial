@@ -1536,7 +1536,7 @@ This make sense, since most cis-regulatory elements are located near the transcr
 
 For this analysis, we will be using R package ChIPSeeker. Apart from annotating genes, it provides visualization functions to assesses peak coverage and profile of peaks.
 
-Open up RStudio and open up the chipseq-project that we created previously. Next, open up a new R script and save it as chipseeker.R This script is available in **the scripts folder in the repository.**
+Open RStudio and open the chipseq-project folder that we created previously. Next, open a new R script and save it as chipseeker.R This script is available in **the scripts folder in the repository.**
 
 Start by installing the necessary libraries and loading them.
 
@@ -1573,7 +1573,7 @@ names(files) <- c("H3K4me1_GM12878", "Nfxl1_GM12878", "Nfxl1_K562")
 
 ```
 
-Let’s begin annotating our peaks. We will be using the annotation database EnsDb.Hsapiens.v86. These are generated from ENSEMBL. Since UCSC-style chromosome names are used we have to change the style of the chromosome names from Ensembl to UCSC.
+Let’s begin annotating our peaks. 
 
 The annotatePeak function performs peak annotation and it uses the nearest gene method to identify nearest Transcription Start Sites (TSS) to the given genomic coordinates. It also allows you to specify a max distance from the TSS to cover the binding site locations accurately.  Here, we specify a distance of 2.5kb upstream and downstream from TSS.
 

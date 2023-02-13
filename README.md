@@ -281,7 +281,7 @@ In a diverse library most sequences will occur only once in the final set. A low
 In this sample, we do not observe high level of duplication. Duplicates are removed prior to peak calling.
 
 * **Over-represented sequences plot**: The ‘Overrepresented Sequence Plot’ lists all of the sequence which make up more than 0.1% of the total. 
-Theoretically, a normal-high throughput library would have a diverse set of sequences; no individual sequence would account for a high fraction of the whole. However, if the sample does contain overrepresented sequences, it could mean that the plot is highly biologically significant or the library is contaminated or it has a bias.
+Theoretically, a normal-high throughput library would have a diverse set of sequences; no individual sequence would account for a high fraction of the whole. However, if the sample does contain overrepresented sequences, it could mean that the sequence is highly biologically significant or the library is contaminated or it has a bias.
 With ChIP-Seq, it is quite likely to see over-represented sequences in the immunoprecipitated sample as you are enriching for specific protein-bound DNA sequences. Lack of over-represented sequences, as in case of this sample, doesn’t necessarily mean that you have a bad sample/experiment.
 
 ----------------------------------------------------------------

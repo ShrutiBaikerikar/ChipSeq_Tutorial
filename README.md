@@ -23,7 +23,7 @@ Let's begin the tutorial with a basic introduction to ChIP Sequencing.
      - [Background of the dataset](#dataset_intro)
      - [Installation](#installation)
      - [Setting up Working Directory](#work_directory)
-- [Motif Analysis from ChIP-Seq Data](#workflow)
+- [Differential Binding & Motif Analysis from ChIP-Seq Data](#workflow)
      - [Quality Control of ChIP-Seq Reads](#quality_control)
      - [Preprocessing of ChIP-Seq Reads](#preprocessing)
      - [Alignment of ChIP-Seq Reads to Reference Genome](#alignment)

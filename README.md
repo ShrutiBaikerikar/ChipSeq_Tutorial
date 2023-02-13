@@ -91,7 +91,7 @@ The following image gives you a brief idea of the computational approaches invol
 On the left are the basic steps involved in ChIP Sequencing Data Analysis and on the right are the tools/software that are used in these procedures. 
 
 
-### What tools are will be using in this RNA Sequencing Analysis - Tutorial?
+### What tools are will be using in this ChIP Sequencing Analysis - Tutorial?
 
 For this tutorial, we will be using the following tools
 -	Quality Control : FASTQC, ChIPQC
@@ -104,7 +104,7 @@ For this tutorial, we will be using the following tools
 Please download these tools and install them in your system.
 Before proceeding with the tutorial, please install Ubuntu if you are using Windows OS. We will be using Bash/Shell and RStudio in this tutorial.
 
-### Which dataset will we use for DE gene analysis from RNA Seq data? <a name="dataset_intro"></a>
+### Which dataset will we use for this ChIP Sequencing Analysis - Tutorial? <a name="dataset_intro"></a>
 
 We will be using the following ENCODE datasets for our analysis:
 * [ENCSR000AKF](https://www.encodeproject.org/experiments/ENCSR000AKF/) : H3K4me1 ChIP-Seq on GM12878

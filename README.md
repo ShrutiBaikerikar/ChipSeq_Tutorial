@@ -304,7 +304,7 @@ Like any other part of the read, these tags can undergo sequencing errors like m
 
 Trimming tools overcome these challenges by examining the reads for known adapter content, aligning the portions of the reads that partially match these adapter sequences and then trimming the matched portions.
 
-* **Examining Read Length**: Read length distribution gives us an idea of how useful the reads are for further steps such as genome alignment, transcriptome assembly and detection of splice isoforms. Very short reads, resulting from trimming and adapter removal, map unambiguously to the genome and hence can be removed from further analysis.
+* **Examining Read Length**: Read length distribution gives us an idea of how useful the reads are for further steps such as genome alignment. Very short reads, resulting from trimming and adapter removal, map unambiguously to the genome and hence can be removed from further analysis.
 
 The above-mentioned steps are the most common procedures utilised for pre-processing data prior to alignment. Depending on your data quality and the QC plots, you may need to take additional steps such as cautious removal of duplicates, examining reads for possible contaminants and removing related sequences etc.
 

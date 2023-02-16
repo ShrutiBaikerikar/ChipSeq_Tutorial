@@ -202,7 +202,7 @@ Here is how you can organize your working directory structure:
 
 ## Differential Binding & Motif Analysis from ChIP Sequencing Data - Workflow <a name="workflow"></a>
 
-Now, we will begin our data analysis. One important thing to note is that these FASTQ files contain a lot of data that can be difficult to process on average PC. Therefore it's best to use an HPC or cloud computing environment to run this tutorial.
+Now, we will begin our data analysis. One important thing to note is that these FASTQ files are quite large to process on average computers. Therefore it's best to use a cloud computing environment to run this tutorial.
 I will soon be adding a toy dataset that can be used to implement this tutorial. Till then this tutorial best serves as a guide or reference when working with real data.
 
 Lets's begin our analysis with quality control of our raw ChIP-Seq reads.

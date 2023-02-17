@@ -968,7 +968,7 @@ IDR stands for Irreproducibility Discovery Rate. The ENCODE project developed th
 
 IDR begins with generating a peak list with a lenient threshold that will contain both genuine peaks and noise. The peaks in the list are ranked, e.g. on their fold enrichment or significance, these ranks will correlate well for genuine peaks, while the noise will show no correlation. 
 
-Further, IDR uses a statistical method to find the point in the curve at which the heterogeneity of the association between replicate ranks sharply increases. This decay point, from which no consistency in correspondence is observed, serves as an internal indicator of the change from signal to noise.
+Further, IDR uses a statistical method to find the point in the curve at which the heterogeneity of the association between replicate ranks sharply increases. This decay point serves as an indicator of the change from signal to noise.
 
 As a metric to evaluate consistency between replicates, IDR has several advantages:
 - It does not take into account initial cut-offs used during peak calling as they tend to be different for different peak callers. This means that you can compare peak lists obtained from different peak callers.  
@@ -986,8 +986,6 @@ The results of these comparisons are further evaluated to obtain the final peak 
 **Running IDR**
 
 You can download IDR from https://github.com/nboley/idr This one is written in Python and is run via the Bash shell. We will be using this version for the tutorial.
-
-Additionally IDR is written in R as well and you can learn more about it here https://www.encodeproject.org/software/idr/
 
 After installing IDR and adding to your path, run the following commands:
 
@@ -1018,7 +1016,7 @@ macs2 callpeak -t ./alignment/pooled_bam/Nfxl1_GM12878_pooled.bam -c ./alignment
 wc -l ./macs2/output2/Nfxl1_GM12878_pooled_relaxed_peaks.narrowPeak
 
 ```
-The above code focuses only on samples of transcription factor Nfxl1 in cell line GM12878. You have to run the same commands for Nfxl1 in cell line K562. Also remember to change the 'threads' parameter to suit your system.
+The above code focuses only on samples of transcription factor Nfxl1 in cell line GM12878. You have to run the same commands for Nfxl1 in cell line K562. 
 
 Now, that we have all our peak list files (with relaxed threshold) ready, we can conduct an IDR analysis on the replicates. 
 

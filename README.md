@@ -1128,8 +1128,8 @@ Visualization of data can be carried out immediately after alignment to referenc
 
 But in regions with a high density of reads (such as peaks), such a visualization does not scale well.   Instead of visualising every single read, a genomic coverage file can be generated to summarise the number of reads overlapping each position in the genome.
 
-Since sequenced reads represent only ends of the chromatin-immunoprecipitated DNA fragments, reads are extended to 200 bp in 3’ direction as 200 bp is the rough estimate of fragment size selected in ChIP experiments.
-This helps smooth the signal and ensures that summits of the peak appear above the binding sites. To compare different samples, read counts at each position are normalised to one million of mapped reads using scaling factors such as  Reads Per Kilobase per Million mapped reads (RPKM), counts per million (CPM), bins per million mapped reads (BPM) and 1x depth (reads per genome coverage, RPGC).
+Since sequenced reads represent only ends of the chromatin-immunoprecipitated DNA fragments, reads are extended to 200 bp in 3’ direction; the rough estimate of fragment size selected in ChIP experiments.
+This helps smooth the signal and ensures that summits of the peak appear above the binding sites. To compare different samples, read counts at each position are normalised to one million of mapped reads using scaling factors such as  Reads Per Kilobase per Million mapped reads (RPKM), counts per million (CPM), bins per million mapped reads (BPM).
 
 This genomic coverage data can be stored in various formats and here we will be using bigWig format. BigWig format is an indexed binary format that helps display dense, continuous data as a graph or track in the genome browser.
 

@@ -495,7 +495,7 @@ Peak calling is the most important step of ChIP-Seq analysis that helps identify
 
 The binding sites to which the proteins are bound appear as areas with high read density and are known as peaks. Sequencing of DNA from ChIP samples is performed randomly from either end and it does not cover the entire length of the enriched DNA fragment.
 
-The 5’ end of the selected fragments from groups on the positive and negative strand centered around the binding site. (See the figure below). These binding patterns form a characteristic bimodal distribution or paired peaks.
+The 5’ end of the selected fragments form groups on the positive and negative strand that are centered around the binding site. (See the figure below). These binding patterns form a characteristic bimodal distribution or paired peaks.
 
 <p> </br> </p>
 <p align="center">

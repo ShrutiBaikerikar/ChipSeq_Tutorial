@@ -566,9 +566,9 @@ The 5’end of the reads are centered around the binding site both on the positi
 
 In the case of paired-end reads, MACS2 estimates fragment size from the insert size of the paired reads.
 
-Estimation of fragment size helps shift the 5’end fragments of Chip-Seq samples towards the 3’ direction to better estimate the true binding site. The distance by which the 5’end ends are to be moved is referred to as shift size.
+Estimation of fragment size helps shift the 5’end fragments of Chip-Seq samples towards the 3’ direction to better estimate the true binding site. The distance by which the 5’end are to be moved is referred to as shift size.
 
-To model the shift size, MACS2 scans the genome with a window of length 2 x bandwidth and identifies regions with reads more than the mfold enriched relative to random tag distribution. 
+To model the shift size, MACS2 scans the genome with a window of length 2 x bandwidth and identifies regions with reads more than the mfold enrichment relative to random tag distribution. 
 Bandwidth refers to the sonication size or the size of DNA fragments that are sheared after immunoprecipitation. Mfold is high-confidence fold-enrichment.
 
 Then MACS2 randomly samples 1000 of these high-quality peaks, separates the positive and negative strands, and aligns them at the midpoint between their centers. (See the figure below)

@@ -821,9 +821,9 @@ These metrics helps us understand the distribution of the signal in the enriched
 
 SSD Score stands for Standardised Standard Deviation of the coverage. It the standard deviation of coverage normalised to the total number of reads.
 
-A higher proportion of genomic positions at greater depths is indicative of successful ChIP-Seq samples. A high SSD score means that there are regions with high signal in the sample but this can be strongly affected by artefacts.
+A high SSD score means that there are regions with high signal in the sample but this can be strongly affected by artefacts. The X axis represents read pileup height at a basepair position while the Y axis represents how many positions have this pileup height, in the log scale. A ChIP sample with good enrichment shows 'reasonable' tails.
 
-In our dataset, Nfxl1 samples have a higher SSD score than H3K4me1. The coverage plot also indicates better pileup at higher sequencing depth or heavier tail which is indicative of good enrichment.
+In our dataset, Nfxl1 samples have a higher SSD score than H3K4me1. 
 
 **RiP%**
 

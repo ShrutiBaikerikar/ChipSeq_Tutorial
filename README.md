@@ -771,7 +771,7 @@ library(TxDb.Hsapiens.UCSC.hg38.knownGene)
 samples <- read.csv('chip_seq_analysis/chipseq_r/meta_samples_chipqc.csv')
 samples
 
-#If you are using a Windows PC, please run this command
+#If you are using a Windows system, please run this command
 register(SerialParam())
 
 ## Create ChIPQC object [This step takes some time.]
